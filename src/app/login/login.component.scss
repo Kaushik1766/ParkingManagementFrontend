@@ -1,0 +1,34 @@
+@import '../../styles/mixins';
+@import '../../styles/variables';
+
+.login-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+
+  flex-direction: row;
+}
+
+.login-img {
+  width: 50%;
+  background-color: gray;
+  display: block;
+
+  @include screen-width(md) {
+    display: none;
+  }
+}
+
+.login-form {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+
+  @include screen-width(md) {
+    width: 100%;
+  }
+}
