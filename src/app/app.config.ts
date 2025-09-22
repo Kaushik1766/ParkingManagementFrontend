@@ -11,7 +11,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Aura
+        preset: Aura,
       }
     }),
     provideZoneChangeDetection({ eventCoalescing: true }),

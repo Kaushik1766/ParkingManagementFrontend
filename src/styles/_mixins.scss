@@ -1,7 +1,8 @@
+@use "sass:map";
 @import './variables';
 
 @mixin screen-width($breakpoint) {
-  $size: map-get($breakpoints, $breakpoint);
+  $size: map.get($breakpoints, $breakpoint);
 
   @if $size {
     @media (max-width: $size) {
