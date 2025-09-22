@@ -13,10 +13,38 @@
   width: 50%;
   background-color: gray;
   display: block;
+  position: relative;
+  overflow: hidden;
 
   @include screen-width(md) {
     display: none;
   }
+
+  img {
+    height: 100%;
+  }
+
+  .overlay {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 0 0px 0px rgba(255, 255, 255, 0);
+
+  }
+
 }
 
 .login-form {
@@ -26,7 +54,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: var(--background);
 
   @include screen-width(md) {
     width: 100%;
