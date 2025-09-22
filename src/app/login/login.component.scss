@@ -60,3 +60,35 @@
     width: 100%;
   }
 }
+
+
+.form-content {
+  height: 60%;
+  width: 45%;
+
+  h2 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  p-floatlabel {
+    color: var(--accent);
+
+    input {
+      width: 100%;
+    }
+
+    p-password {
+      width: 100%;
+    }
+  }
+}
