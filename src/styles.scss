@@ -1,12 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-  --background: #fef7ff;
+  --background: white;
   --accent: #6750a4;
   --text-primary: #1d1b20;
   --text-secondary: #8c8c8c;
 }
 
+@font-face {
+  font-family: 'KumbhSans';
+  src: url('/fonts/KumbhSans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'KumbhSans';
+}
+
 body {
   margin: 0;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
 }

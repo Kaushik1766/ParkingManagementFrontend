@@ -1,11 +1,52 @@
 @use "sass:map";
-@import './variables';
+@use './variables' as *;
 
 @mixin screen-width($breakpoint) {
   $size: map.get($breakpoints, $breakpoint);
 
   @if $size {
-    @media (max-width: $size) {
+    @media (min-width: $size) {
+      @content;
+    }
+  }
+}
+
+@mixin sm {
+  $size: map.get($breakpoints, sm);
+
+  @if $size {
+    @media (min-width: $size) {
+      @content;
+    }
+  }
+}
+
+
+@mixin md {
+  $size: map.get($breakpoints, md);
+
+  @if $size {
+    @media (min-width: $size) {
+      @content;
+    }
+  }
+}
+
+@mixin lg {
+  $size: map.get($breakpoints, lg);
+
+  @if $size {
+    @media (min-width: $size) {
+      @content;
+    }
+  }
+}
+
+@mixin xl {
+  $size: map.get($breakpoints, xl);
+
+  @if $size {
+    @media (min-width: $size) {
       @content;
     }
   }

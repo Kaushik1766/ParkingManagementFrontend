@@ -1,18 +1,24 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Button } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from "primeng/inputtext";
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { Password } from 'primeng/password';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [Button, FormsModule, InputTextModule, FloatLabelModule, Password],
+  imports: [Button, RouterLink, FormsModule, InputTextModule, FloatLabelModule, Password],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   email = ''
   password = ''
+
+
+  login() {
+    console.log(this.email, this.password)
+    throw ('implementation pending')
+  }
 }

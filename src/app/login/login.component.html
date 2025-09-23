@@ -11,16 +11,21 @@
     <div class="form-content">
       <h2>Welcome Back</h2>
       <p>Welcome back, please sign in to your account</p>
-      <form>
-        <p-floatlabel variant="on">
-          <input pInputText id="email" autocomplete="off" name="email" />
+      <form (submit)='login()'>
+        <p-floatlabel variant="on" class="text-accent">
+          <input pInputText id="email" autocomplete="off" name="email" fluid [(ngModel)]='email' email />
           <label for="email">Email</label>
         </p-floatlabel>
         <p-floatlabel variant="on">
-          <p-password inputId="password" name="password" [feedback]='false' />
+          <p-password inputId="password" name="password" [feedback]='false' fluid [(ngModel)]='password'/>
           <label for="password">Password</label>
         </p-floatlabel>
+        <p-button type="submit" styleClass="w-full" >Submit</p-button>
       </form>
+
+      <div>
+        <p>Don't have an account? <a class="text-accent" [routerLink]="['/']" >Sign up</a></p>
+      </div>
     </div>
   </div>
 </div>
