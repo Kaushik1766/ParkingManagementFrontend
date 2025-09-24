@@ -1,6 +1,6 @@
 import { Component, HostListener, inject, Renderer2 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DOCUMENT } from '@angular/common'
+import { ThemingService } from './services/theming.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +11,12 @@ import { DOCUMENT } from '@angular/common'
 export class AppComponent {
   title = 'ParkingManagementFrontend';
 
-  root = inject(DOCUMENT)
+  themeService = inject(ThemingService)
 
   @HostListener('document:keydown', ['$event'])
   toggleDarkMode(e: KeyboardEvent) {
     if (e.altKey && e.key.toLowerCase() == 't') {
-      this.root.querySelector('html')?.classList.toggle('dark')
+      this.themeService.toggleTheme()
     }
   }
 }
