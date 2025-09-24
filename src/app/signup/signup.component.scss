@@ -3,7 +3,7 @@
 
 
 
-.login-container {
+.signup-container {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -11,7 +11,7 @@
   flex-direction: row;
 }
 
-.login-img {
+.signup-img {
   width: 50%;
   background-color: gray;
   display: none;
@@ -50,7 +50,7 @@
 
 }
 
-.login-form {
+.signup-form {
   width: 100%;
   height: 100%;
   display: flex;

@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 @Injectable({
   providedIn: "root"
 })
-export class AuthManager implements IAuthManager {
+export class AuthManager {
   login(): string {
     return 'logged in'
   }
@@ -14,20 +14,3 @@ export class AuthManager implements IAuthManager {
 
 }
 
-export interface IAuthManager {
-  login(): string;
-  signup(): string;
-}
-
-@Injectable({
-  providedIn: "root"
-})
-export class AuthManager1 implements IAuthManager {
-  login(): string {
-    return 'logged in'
-  }
-  signup(): string {
-    return 'signed up'
-  }
-
-}

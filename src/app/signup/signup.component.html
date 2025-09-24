@@ -1,0 +1,39 @@
+<div class="signup-container">
+
+  <!-- signup img -->
+  <div class="signup-img">
+    <img src="parkingImg.jpeg" alt="image">
+    <div class="overlay">
+    </div>
+  </div>
+  <!-- signup form  -->
+  <div class="signup-form">
+    <div class="form-content">
+      <h2>Welcome On Board!</h2>
+      <p>Welcome onboard! Please enter your details to signup</p>
+      <form (submit)='signup()'>
+        <p-floatlabel variant="on" class="text-accent">
+          <input pInputText id="email" autocomplete="off" name="email" fluid [(ngModel)]='email' email />
+          <label for="email">Email</label>
+        </p-floatlabel>
+        <p-floatlabel variant="on" class="text-accent">
+          <input pInputText id="userName" autocomplete="off" name="userName" fluid [(ngModel)]='userName'  />
+          <label for="userName">UserName</label>
+        </p-floatlabel>
+        <p-floatlabel variant="on">
+          <p-password inputId="password" name="password" [feedback]='false' fluid [(ngModel)]='password'/>
+          <label for="password">Password</label>
+        </p-floatlabel>
+        <p-floatlabel variant="on" class="text-accent">
+          <input pInputText id="officeName" autocomplete="off" name="officeName" fluid [(ngModel)]='officeName' />
+          <label for="officeName">OfficeName</label>
+        </p-floatlabel>
+        <p-button type="submit" styleClass="w-full" >Submit</p-button>
+      </form>
+
+      <div>
+        <p>Already registered? <a class="text-accent" [routerLink]="['/login']" >Sign in</a></p>
+      </div>
+    </div>
+  </div>
+</div>

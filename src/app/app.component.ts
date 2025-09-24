@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, inject, Renderer2 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ButtonModule, Button } from 'primeng/button'
-import { LoginComponent } from './login/login.component';
+import { DOCUMENT } from '@angular/common'
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,12 @@ import { LoginComponent } from './login/login.component';
 export class AppComponent {
   title = 'ParkingManagementFrontend';
 
-  logVal(v: string) {
-    console.log(v)
+  root = inject(DOCUMENT)
+
+  @HostListener('document:keydown', ['$event'])
+  toggleDarkMode(e: KeyboardEvent) {
+    if (e.altKey && e.key.toLowerCase() == 't') {
+      this.root.querySelector('html')?.classList.toggle('dark')
+    }
   }
 }
