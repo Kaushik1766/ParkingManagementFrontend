@@ -5,6 +5,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { authGuard } from './auth.guard';
+import { LogoutComponent } from './logout/logout.component';
 
 export const routes: Routes = [
   {
@@ -16,12 +18,17 @@ export const routes: Routes = [
     component: LoginComponent,
   },
   {
+    path: 'logout',
+    component: LogoutComponent,
+  },
+  {
     path: 'signup',
     component: SignupComponent,
   },
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [authGuard]
   },
   {
     path: 'adminDashboard',

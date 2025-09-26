@@ -13,6 +13,7 @@ export class AuthService {
   private httpClient = inject(HttpClient)
   constructor() {
     const localUser = localStorage.getItem('user')
+
     if (localUser) {
       this.userSignal.set(JSON.parse(localUser) as User)
     }
@@ -26,10 +27,16 @@ export class AuthService {
       try {
         const user = this.tokenParser(val.jwt)
         this.userSignal.set(user)
+        localStorage.setItem('user', JSON.stringify(user))
       } catch (e) {
         console.log(e)
       }
     }))
+  }
+
+  logout() {
+    localStorage.clear()
+    this.userSignal.set(null)
   }
 
   private tokenParser(token: string): User {
