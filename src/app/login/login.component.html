@@ -8,6 +8,7 @@
   </div>
   <!-- login form  -->
   <div class="login-form">
+    <p-toast />
     <div class="form-content">
       <h2>Welcome Back</h2>
       <p>Welcome back, please sign in to your account</p>
@@ -20,7 +21,7 @@
           <p-password inputId="password" name="password" [feedback]='false' fluid [(ngModel)]='password'/>
           <label for="password">Password</label>
         </p-floatlabel>
-        <p-button type="submit" styleClass="w-full" >Submit</p-button>
+        <p-button type="submit" styleClass="w-full" [disabled]='loading()' >{{loading()?'Hang on...':'Login'}}</p-button>
       </form>
 
       <div>

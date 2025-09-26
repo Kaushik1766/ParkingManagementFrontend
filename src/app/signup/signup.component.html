@@ -2,7 +2,7 @@
 
   <!-- signup img -->
   <div class="signup-img">
-    <img src="parkingImg.jpeg" alt="image">
+    <img [src]="themingService.currentTheme=='dark'?'parkingImgDark.webp':'parkingImg.jpeg'" alt="image">
     <div class="overlay">
     </div>
   </div>

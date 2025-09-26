@@ -2,8 +2,9 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { authGuard } from './auth.guard';
 import { SignupComponent } from './signup/signup.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -13,18 +14,18 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    // canActivate: [authGuard],
-    // canActivateChild: [authGuard]
   },
   {
     path: 'signup',
     component: SignupComponent,
-    // canActivate: [authGuard],
-    // canActivateChild: [authGuard]
   },
   {
-    path: 'login/a',
-    component: LoginComponent,
+    path: 'dashboard',
+    component: DashboardComponent,
+  },
+  {
+    path: 'adminDashboard',
+    component: AdminDashboardComponent,
   },
   {
     path: '**',

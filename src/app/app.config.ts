@@ -5,6 +5,9 @@ import { providePrimeNG } from 'primeng/config';
 
 import { routes } from './app.routes';
 import { customPreset } from './themePreset';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
 export const appConfig: ApplicationConfig = {
@@ -19,7 +22,8 @@ export const appConfig: ApplicationConfig = {
       }
     }),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
+    provideRouter(routes),
+    provideHttpClient(withInterceptors([BaseUrlInterceptor, AuthInterceptor]))
   ]
 };
 

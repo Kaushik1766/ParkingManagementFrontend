@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { Password } from 'primeng/password';
+import { ThemingService } from '../services/theming.service';
 
 @Component({
   selector: 'app-signup',
@@ -17,6 +18,8 @@ export class SignupComponent {
   email = ''
   password = ''
   officeName = ''
+
+  themingService = inject(ThemingService)
 
   signup() {
 
