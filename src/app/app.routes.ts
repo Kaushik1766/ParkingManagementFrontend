@@ -5,8 +5,9 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { SignupComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { authGuard } from './auth.guard';
+import { authGuard } from './guards/auth.guard';
 import { LogoutComponent } from './logout/logout.component';
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,7 @@ export const routes: Routes = [
   {
     path: 'adminDashboard',
     component: AdminDashboardComponent,
+    canActivate: [adminGuard]
   },
   {
     path: '**',
