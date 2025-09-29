@@ -1,0 +1,16 @@
+.menu-item {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: start;
+  gap: 2rem;
+  border-radius: var(--p-border-radius-lg);
+  padding: 0 1rem;
+  cursor: pointer;
+  background-color: var(--p-surface-100);
+
+  &:hover {
+    background-color: var(--p-surface-200);
+  }
+}

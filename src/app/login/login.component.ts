@@ -39,7 +39,7 @@ export class LoginComponent {
         if (this.authService.userSignal()?.role == Roles.ADMIN) {
           this.router.navigate(['admin', 'dashboard'])
         } else {
-          this.router.navigate(['user', 'dashboard'])
+          this.router.navigate(['user'])
         }
       },
       error: (err: HttpErrorResponse) => {

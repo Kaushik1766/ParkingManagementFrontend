@@ -3,6 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { Roles, User } from '../models/user';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -10,7 +11,10 @@ import { Roles, User } from '../models/user';
 })
 export class AuthService {
   userSignal = signal<User | null>(null)
+
   private httpClient = inject(HttpClient)
+  private router = inject(Router)
+
   constructor() {
     const localUser = localStorage.getItem('user')
 
@@ -37,6 +41,7 @@ export class AuthService {
   logout() {
     localStorage.clear()
     this.userSignal.set(null)
+    this.router.navigate(['/login'])
   }
 
   private tokenParser(token: string): User {

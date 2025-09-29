@@ -3,7 +3,6 @@ import { LoginComponent } from './login/login.component';
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { SignupComponent } from './signup/signup.component';
-import { DashboardComponent } from './user/dashboard/dashboard.component';
 import { AdminDashboardComponent } from './admin/dashboard/admin-dashboard.component';
 import { authGuard } from './guards/auth.guard';
 import { LogoutComponent } from './logout/logout.component';
@@ -38,12 +37,12 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'vehicles',
         pathMatch: 'full'
       },
       {
-        path: 'dashboard',
-        loadComponent: () => import('./user/dashboard/dashboard.component').then(m => m.DashboardComponent),
+        path: 'vehicles',
+        loadComponent: () => import('./user/vehicles/vehicles.component').then(m => m.VehiclesComponent),
       }
     ]
   },

@@ -1,9 +1,25 @@
+<div class="header">
+  <div class="left">
+    <p-button icon="pi pi-bars" severity="secondary" [outlined]="true" severity="help" (onClick)="visible.set(!visible())"></p-button>
+    <div class="logo">
+      <img src="parkingImg.jpeg" alt="logo">
+      <h1>1337Park</h1>
+    </div>
+  </div>
+  <div class="right">
+    <div class="email">
+      <span class="pi pi-user"></span>
+      <p>{{currentUser?.email}}</p>
+    </div>
+    <p-button label="Logout" icon="pi pi-sign-out" variant="text" (onClick)="logout()"></p-button>
+  </div>
+</div>
 <p-drawer [(visible)]="visible" [closable]="false">
   <ng-template #header>
     <div class="drawer-header">
       <img src="parkingImg.jpeg" alt="logo">
       <h1>1337Park</h1>
-      <p-button icon="pi pi-times" [rounded]="true" severity="secondary" (onClick)="visible=false"/>
+      <p-button icon="pi pi-times" [rounded]="true" severity="secondary" (onClick)="visible.set(false)"/>
     </div>
   </ng-template>
   <ng-template #content>
@@ -13,10 +29,10 @@
     <div class="drawer-footer">
       <span class="pi pi-user"></span>
       <div class="user-details">
-        <p class="user-email">kaushik&#64;a.com</p>
-        <p class="user-role">Admin</p>
+        <p class="user-email">{{currentUser?.email}}</p>
+        <p class="user-role">{{currentUser?.role==1?'Admin':'Customer'}}</p>
       </div>
-      <p-button icon="pi pi-sign-out" [rounded]='true'></p-button>
+      <p-button icon="pi pi-sign-out" [rounded]='true' (onClick)="logout()"></p-button>
     </div>
   </ng-template>
 </p-drawer>
