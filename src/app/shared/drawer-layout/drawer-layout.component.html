@@ -1,0 +1,22 @@
+<p-drawer [(visible)]="visible" [closable]="false">
+  <ng-template #header>
+    <div class="drawer-header">
+      <img src="parkingImg.jpeg" alt="logo">
+      <h1>1337Park</h1>
+      <p-button icon="pi pi-times" [rounded]="true" severity="secondary" (onClick)="visible=false"/>
+    </div>
+  </ng-template>
+  <ng-template #content>
+    <ng-content />
+  </ng-template>
+  <ng-template #footer>
+    <div class="drawer-footer">
+      <span class="pi pi-user"></span>
+      <div class="user-details">
+        <p class="user-email">kaushik&#64;a.com</p>
+        <p class="user-role">Admin</p>
+      </div>
+      <p-button icon="pi pi-sign-out" [rounded]='true'></p-button>
+    </div>
+  </ng-template>
+</p-drawer>

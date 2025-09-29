@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { UserDrawerComponent } from '../drawer/user-drawer.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [UserDrawerComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

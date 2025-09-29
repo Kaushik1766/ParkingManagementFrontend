@@ -11,12 +11,18 @@ export const authGuard: CanActivateFn = (childRoute, state) => {
   const user = authService.userSignal()
 
   if (!user) {
+    // if (router.url.includes('login') || router.url.includes('signup')) {
+    //   return true
+    // }
     return router.createUrlTree(['/login'])
   }
 
   if (user.role == Roles.ADMIN) {
-    return router.createUrlTree(['/adminDashboard'])
+    return router.createUrlTree(['/admin', 'dashboard'])
   }
+  // if (router.url.includes('login') || router.url.includes('signup')) {
+  //   return router.createUrlTree(['/dashboard'])
+  // }
   return true
 };
 

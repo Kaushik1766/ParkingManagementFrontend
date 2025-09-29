@@ -37,9 +37,9 @@ export class LoginComponent {
     const loginSub = this.authService.login(this.email, this.password).subscribe({
       next: () => {
         if (this.authService.userSignal()?.role == Roles.ADMIN) {
-          this.router.navigate(['adminDashboard'])
+          this.router.navigate(['admin', 'dashboard'])
         } else {
-          this.router.navigate(['dashboard'])
+          this.router.navigate(['user', 'dashboard'])
         }
       },
       error: (err: HttpErrorResponse) => {
