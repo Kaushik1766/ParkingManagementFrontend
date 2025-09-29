@@ -1,0 +1,32 @@
+<div class="card" [class.parked]="vehicle().isParked">
+  <div class="vehicle-info">
+    <div class="vehicle-icon">
+      <div class="icon">
+        <ng-icon [name]="vehicleIcon" />
+      </div>
+      <div class="numberplate">
+        <p>{{ vehicle().vehicleType | titlecase }}</p>
+        <h3>{{ vehicle().numberplate }}</h3>
+      </div>
+    </div>
+    <p-button 
+      icon="pi pi-trash" 
+      variant="text" 
+      severity="danger"
+      (onClick)="handleDelete()">
+    </p-button>
+  </div>
+  
+  <div class="slot-info">
+      <div class="slot-details">
+        <p>Slot {{ vehicle().parkingSlot!.slotNumber }}</p>
+        <p>Floor {{ vehicle().parkingSlot!.floor }}, {{ vehicle().parkingSlot!.building }}</p>
+      </div>
+    
+    <p-button 
+      [label]="parkingStatusText"
+      [severity]="parkingStatusSeverity"
+      (onClick)="handleParkingAction()">
+    </p-button>
+  </div>
+</div>

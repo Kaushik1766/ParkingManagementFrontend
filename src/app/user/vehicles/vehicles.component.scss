@@ -1,0 +1,61 @@
+@use '../../../styles/mixins' as mx;
+
+.header {
+    margin-bottom: 24px;
+    width: 90%;
+    margin: 3rem auto;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--p-surface-800);
+    margin: 0 0 8px 0;
+  }
+
+  h2 {
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--p-primary-800);
+    margin: 0;
+  }
+}
+
+.vehicles-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 90%;
+  margin: 0 auto;
+  
+grid-template-columns: 1fr;
+
+@media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 900px) {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (min-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+}
+    
+}
+
+.empty-state {
+  width: 100%;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--p-surface-500);
+
+  p {
+    margin: 8px 0;
+    font-size: 1.125rem;
+
+    &:first-child {
+      font-weight: 600;
+      color: var(--p-surface-700);
+    }
+  }
+}
