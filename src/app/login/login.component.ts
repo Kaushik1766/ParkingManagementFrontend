@@ -37,7 +37,7 @@ export class LoginComponent {
     const loginSub = this.authService.login(this.email, this.password).subscribe({
       next: () => {
         if (this.authService.userSignal()?.role == Roles.ADMIN) {
-          this.router.navigate(['admin', 'dashboard'])
+          this.router.navigate(['admin'])
         } else {
           this.router.navigate(['user'])
         }

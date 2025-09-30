@@ -1,1 +1,6 @@
-<p>admin-drawer works!</p>
+<app-drawer-layout [(visible)]="visible">
+  <div>
+    <app-drawer-item link="buildings" title='Buildings' iconName='pi-building' />
+  </div>
+</app-drawer-layout>
+<router-outlet />

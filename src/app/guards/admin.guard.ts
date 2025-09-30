@@ -17,7 +17,7 @@ export const adminGuard: CanActivateFn = (childRoute, state) => {
   }
 
   if (user.role == Roles.CUSTOMER) {
-    return router.createUrlTree(['/user', 'dashboard'])
+    return router.createUrlTree(['/user'])
   }
   // if (router.url.includes('login') || router.url.includes('signup')) {
   //   return router.createUrlTree(['/adminDashboard'])

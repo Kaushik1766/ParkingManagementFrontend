@@ -1,0 +1,97 @@
+<div class="buildings-container">
+  <p-toast />
+  
+  <!-- Header and Add Building Form -->
+  <div class="header-section">
+    <div class="header">
+      <h1>Building Management</h1>
+      <h2>Manage buildings, floors, and parking slots</h2>
+    </div>
+
+    <p-card styleClass="add-building-card">
+      <ng-template #header>
+        <h3>Add New Building</h3>
+      </ng-template>
+      
+      <form [formGroup]="addBuildingForm" (ngSubmit)="onAddBuilding()" class="add-building-form">
+        <div class="form-row">
+          <p-floatlabel>
+            <input 
+              pInputText 
+              id="buildingName" 
+              formControlName="name"
+              class="w-full"
+              [class.ng-invalid]="buildingNameError" />
+            <label for="buildingName">Building Name</label>
+          </p-floatlabel>
+          
+          <p-button 
+            type="submit"
+            label="Add Building"
+            icon="pi pi-plus"
+            [disabled]="!isFormValid || isAddingBuilding"
+            [loading]="isAddingBuilding">
+          </p-button>
+        </div>
+        
+        @if (buildingNameError) {
+          <small class="error-message">{{ buildingNameError }}</small>
+        }
+      </form>
+    </p-card>
+  </div>
+
+  <!-- Buildings List -->
+  <div class="buildings-list">
+    @if (isLoading) {
+      <div class="loading-state">
+        <p-button loading="true" label="Loading buildings..." disabled></p-button>
+      </div>
+    }
+
+    @if (!isLoading && buildings.length === 0) {
+      <div class="empty-state">
+        <h3>No Buildings Found</h3>
+        <p>Create your first building using the form above.</p>
+      </div>
+    }
+
+    @for (building of buildings; track building.id) {
+      <div class="building-card">
+        <div class="building-content">
+          <div class="building-info">
+            <h3 class="building-name">{{ building.name }}</h3>
+            <div class="building-stats">
+              <div class="stat-item">
+                <div class="stat-icon">
+                  <i class="pi pi-building"></i>
+                </div>
+                <div class="stat-details">
+                  <span class="stat-value">{{ building.floors.length }}</span>
+                  <span class="stat-label">{{ building.floors.length === 1 ? 'Floor' : 'Floors' }}</span>
+                </div>
+              </div>
+              
+              <div class="stat-item">
+                <div class="stat-icon available">
+                  <i class="pi pi-car"></i>
+                </div>
+                <div class="stat-details">
+                  <span class="stat-value">{{ building.availableSlots }}</span>
+                  <span class="stat-label">Available Slots</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="building-summary">
+            <div class="total-slots">
+              <span class="total-number">{{ building.totalSlots }}</span>
+              <span class="total-label">Total Slots</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
