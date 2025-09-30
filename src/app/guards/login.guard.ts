@@ -15,9 +15,9 @@ export const loginGuard: CanActivateFn = (childRoute, state) => {
   }
 
   if (user.role == Roles.CUSTOMER) {
-    return router.createUrlTree(['/user', 'dashboard'])
+    return router.createUrlTree(['/user'])
   }
   else {
-    return router.createUrlTree(['/admin', 'dashboard'])
+    return router.createUrlTree(['/admin'])
   }
 };

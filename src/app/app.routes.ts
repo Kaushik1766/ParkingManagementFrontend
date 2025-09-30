@@ -13,7 +13,8 @@ import { UserDrawerComponent } from './user/drawer/user-drawer.component';
 export const routes: Routes = [
   {
     path: '',
-    component: AppComponent
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
   {
     path: 'login',

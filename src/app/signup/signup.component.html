@@ -8,27 +8,41 @@
   </div>
   <!-- signup form  -->
   <div class="signup-form">
+    <p-toast />
     <div class="form-content">
       <h2>Welcome On Board!</h2>
       <p>Welcome onboard! Please enter your details to signup</p>
-      <form (submit)='signup()'>
+      <form (submit)='signup()' [formGroup]="signupForm">
         <p-floatlabel variant="on" class="text-accent">
-          <input pInputText id="email" autocomplete="off" name="email" fluid [(ngModel)]='email' email />
+          <input pInputText id="email" autocomplete="off" name="email" fluid formControlName="email" />
+          @if(isEmailInvalid){
+            <p-message severity="error" variant="simple" size="small">Please enter a valid email</p-message>
+          }
           <label for="email">Email</label>
         </p-floatlabel>
         <p-floatlabel variant="on" class="text-accent">
-          <input pInputText id="userName" autocomplete="off" name="userName" fluid [(ngModel)]='userName'  />
+          <input pInputText id="userName" autocomplete="off" name="userName" fluid  formControlName="userName" />
+          @if(isUserNameValid){
+            <p-message severity="error" variant="simple" size="small">Please enter a non null username</p-message>
+          }
           <label for="userName">UserName</label>
         </p-floatlabel>
         <p-floatlabel variant="on">
-          <p-password inputId="password" name="password" [feedback]='false' fluid [(ngModel)]='password'/>
+          <p-password [toggleMask]="true" inputId="password" name="password" [feedback]='false' fluid formControlName="password"  />
+          @if(isPasswordValid){
+            <p-message severity="error" variant="simple" size="small">Please enter a non null password</p-message>
+          }
           <label for="password">Password</label>
         </p-floatlabel>
         <p-floatlabel variant="on" class="text-accent">
-          <input pInputText id="officeName" autocomplete="off" name="officeName" fluid [(ngModel)]='officeName' />
+          <!-- <input pInputText id="officeName" autocomplete="off" name="officeName" fluid formControlName="office"/> -->
+          <p-select [options]="offices" formControlName="office" fluid placeholder="Please select your office" />
+          @if(isOfficeValid){
+            <p-message severity="error" variant="simple" size="small">Please enter a non empty office name</p-message>
+          }
           <label for="officeName">OfficeName</label>
         </p-floatlabel>
-        <p-button type="submit" styleClass="w-full" >Submit</p-button>
+        <p-button [disabled]="isLoading" type="submit" styleClass="w-full" >Submit</p-button>
       </form>
 
       <div>

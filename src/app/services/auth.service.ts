@@ -4,6 +4,7 @@ import { tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { Roles, User } from '../models/user';
 import { Router } from '@angular/router';
+import { SignupRequest } from '../models/signup.api';
 
 
 @Injectable({
@@ -16,10 +17,10 @@ export class AuthService {
   private router = inject(Router)
 
   constructor() {
-    const localUser = localStorage.getItem('user')
+    const token = localStorage.getItem('token')
 
-    if (localUser) {
-      this.userSignal.set(JSON.parse(localUser) as User)
+    if (token) {
+      this.userSignal.set(this.tokenParser(token))
     }
   }
 
@@ -29,13 +30,17 @@ export class AuthService {
       password: password
     }).pipe(tap(val => {
       try {
+        localStorage.setItem('token', JSON.stringify(val.jwt))
         const user = this.tokenParser(val.jwt)
         this.userSignal.set(user)
-        localStorage.setItem('user', JSON.stringify(user))
       } catch (e) {
         console.log(e)
       }
     }))
+  }
+
+  signup(userDetails: SignupRequest) {
+    return this.httpClient.post('auth/register', userDetails)
   }
 
   logout() {

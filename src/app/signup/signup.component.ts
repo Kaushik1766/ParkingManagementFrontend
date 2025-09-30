@@ -1,27 +1,117 @@
-import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { Password } from 'primeng/password';
 import { ThemingService } from '../services/theming.service';
+import { Toast, ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { Message } from "primeng/message";
+import { SelectModule } from 'primeng/select';
+import { OfficeService } from '../services/office.service';
+import { AuthService } from '../services/auth.service';
+import { SignupRequest } from '../models/signup.api';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
-  imports: [Button, RouterLink, FormsModule, InputTextModule, FloatLabelModule, Password],
+  imports: [ToastModule, Button, RouterLink, InputTextModule, FloatLabelModule, Password, ReactiveFormsModule, Message, SelectModule],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+  styleUrl: './signup.component.scss',
+  providers: [MessageService]
 })
-export class SignupComponent {
-  userName = ''
-  email = ''
-  password = ''
-  officeName = ''
-
+export class SignupComponent implements OnInit {
   themingService = inject(ThemingService)
+  private signupService = inject(AuthService)
+  private officeService = inject(OfficeService)
+  private destroyRef = inject(DestroyRef)
+  private toastMessage = inject(MessageService)
+
+  offices: string[] = ['addf']
+  isLoading = false
+
+  signupForm = new FormGroup({
+    userName: new FormControl('', {
+      validators: [
+        Validators.required,
+      ],
+      updateOn: 'blur'
+    }),
+    email: new FormControl('', {
+      validators: [
+        Validators.required,
+        Validators.email
+      ],
+      updateOn: 'blur'
+    }),
+    password: new FormControl('', {
+      validators: [
+        Validators.required,
+      ],
+      updateOn: 'blur'
+    }),
+    office: new FormControl('', {
+      validators: [
+        Validators.required,
+      ],
+      updateOn: 'blur'
+    })
+  })
+
+  ngOnInit(): void {
+    const officeSub = this.officeService.getOffices().subscribe({
+      next: resp => {
+        this.offices = resp
+      },
+      error: e => {
+        console.error(e)
+      }
+    })
+
+    this.destroyRef.onDestroy(() => officeSub.unsubscribe())
+  }
 
   signup() {
+    console.log(this.signupForm)
+    if (this.signupForm.valid) {
+      this.isLoading = true;
+      const userDetails: SignupRequest = {
+        email: this.signupForm.controls.email.value!,
+        name: this.signupForm.controls.userName.value!,
+        officeName: this.signupForm.controls.office.value!,
+        password: this.signupForm.controls.password.value!
+      }
+      const sub = this.signupService.signup(userDetails).subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.toastMessage.add({ severity: 'success', summary: 'Success', detail: 'Account created successfully' });
+        },
+        error: (err: HttpErrorResponse) => {
+          console.log(err)
+          this.isLoading = false;
+          this.toastMessage.add({ severity: 'error', summary: 'Error', detail: err.error.message || 'Something went wrong' });
+        }
+      })
 
+      this.destroyRef.onDestroy(() => sub.unsubscribe())
+    }
+  }
+
+  get isEmailInvalid(): boolean {
+    return this.signupForm.controls.email.invalid && this.signupForm.controls.email.dirty
+  }
+
+  get isUserNameValid(): boolean {
+    return this.signupForm.controls.userName.invalid && this.signupForm.controls.userName.dirty
+  }
+
+  get isOfficeValid(): boolean {
+    return this.signupForm.controls.office.invalid && this.signupForm.controls.office.dirty
+  }
+
+  get isPasswordValid(): boolean {
+    return this.signupForm.controls.password.invalid && this.signupForm.controls.password.dirty
   }
 }

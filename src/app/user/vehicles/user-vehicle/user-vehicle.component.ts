@@ -1,8 +1,8 @@
 import { Component, input, output } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core'
-import { 
-  matDirectionsBikeOutline, 
-  matDeleteOutline, 
+import {
+  matDirectionsBikeOutline,
+  matDeleteOutline,
   matDirectionsCarOutline
 } from '@ng-icons/material-icons/outline'
 import { ButtonModule } from 'primeng/button';
@@ -14,15 +14,15 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
   imports: [NgIcon, ButtonModule, TitleCasePipe],
   templateUrl: './user-vehicle.component.html',
   styleUrl: './user-vehicle.component.scss',
-  viewProviders: [provideIcons({ 
-    matDirectionsBikeOutline, 
-    matDeleteOutline, 
+  viewProviders: [provideIcons({
+    matDirectionsBikeOutline,
+    matDeleteOutline,
     matDirectionsCarOutline
   })]
 })
 export class UserVehicleComponent {
   vehicle = input.required<Vehicle>();
-  
+
   onDelete = output<string>();
   onPark = output<string>();
   onUnpark = output<string>();
@@ -35,7 +35,7 @@ export class UserVehicleComponent {
     return this.vehicle().isParked ? 'Unpark' : 'Park';
   }
 
-  get parkingStatusSeverity(): 'primary' | 'secondary' | 'success' | 'info' | 'warn' | 'danger' | 'help' | 'contrast' {
+  get parkingStatusSeverity(): 'primary' | 'secondary' {
     return this.vehicle().isParked ? 'secondary' : 'primary';
   }
 
