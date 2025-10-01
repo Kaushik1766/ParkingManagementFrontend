@@ -7,10 +7,15 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoaderComponent } from '../../shared/loader/loader.component';
+import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { FloatLabel } from 'primeng/floatlabel';
+import { SelectModule } from 'primeng/select';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-vehicles',
-  imports: [UserVehicleComponent, ToastModule, LoaderComponent],
+  imports: [UserVehicleComponent, ToastModule, LoaderComponent, ReactiveFormsModule, ButtonModule, FloatLabel, SelectModule, InputTextModule],
   templateUrl: './vehicles.component.html',
   styleUrl: './vehicles.component.scss',
   providers: [MessageService]
@@ -21,6 +26,20 @@ export class VehiclesComponent implements OnInit {
 
   vehicles: VehicleResponse[] = []
   isLoading = signal(false)
+
+  vehicleForm = new FormGroup({
+    numberPlate: new FormGroup('', {
+      validators: [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+      ]
+    }),
+    vehicleType: new FormGroup('')
+  })
+
+  addVehicle() {
+  }
 
   ngOnInit(): void {
     this.isLoading.set(true)

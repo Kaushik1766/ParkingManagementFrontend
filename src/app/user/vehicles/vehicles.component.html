@@ -5,6 +5,20 @@
   <h2>Manage your registered vehicles and parking</h2>
 </div>
 
+<div class="add-vehicle">
+  <form [formGroup]="this.vehicleForm" (submit)="addVehicle()" >
+    <p-floatlabel variant="on">
+      <input pInputText id="on_label" autocomplete="off" />
+      <label for="on_label">On Label</label>
+    </p-floatlabel>
+    <p-floatlabel variant="on" class="text-accent">
+      <p-select [options]="['TwoWheeler','FourWheeler']" formControlName="office" fluid placeholder="Please select your office" />
+      <label for="officeName">OfficeName</label>
+    </p-floatlabel>
+    <p-button type="submit">Register Vehicle</p-button>
+  </form>
+</div>
+
 <div class="vehicles-container">
   @for (vehicle of vehicles; track vehicle.number_plate) {
     <app-user-vehicle
