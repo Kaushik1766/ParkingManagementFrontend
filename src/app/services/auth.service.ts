@@ -30,7 +30,7 @@ export class AuthService {
       password: password
     }).pipe(tap(val => {
       try {
-        localStorage.setItem('token', JSON.stringify(val.jwt))
+        localStorage.setItem('token', val.jwt)
         const user = this.tokenParser(val.jwt)
         this.userSignal.set(user)
       } catch (e) {

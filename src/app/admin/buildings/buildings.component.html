@@ -1,6 +1,6 @@
 <div class="buildings-container">
   <p-toast />
-  
+
   <!-- Header and Add Building Form -->
   <div class="header-section">
     <div class="header">
@@ -8,37 +8,35 @@
       <h2>Manage buildings, floors, and parking slots</h2>
     </div>
 
-    <p-card styleClass="add-building-card">
-      <ng-template #header>
-        <h3>Add New Building</h3>
-      </ng-template>
-      
-      <form [formGroup]="addBuildingForm" (ngSubmit)="onAddBuilding()" class="add-building-form">
-        <div class="form-row">
-          <p-floatlabel>
-            <input 
-              pInputText 
-              id="buildingName" 
-              formControlName="name"
-              class="w-full"
-              [class.ng-invalid]="buildingNameError" />
-            <label for="buildingName">Building Name</label>
-          </p-floatlabel>
-          
-          <p-button 
-            type="submit"
-            label="Add Building"
-            icon="pi pi-plus"
-            [disabled]="!isFormValid || isAddingBuilding"
-            [loading]="isAddingBuilding">
-          </p-button>
-        </div>
-        
-        @if (buildingNameError) {
-          <small class="error-message">{{ buildingNameError }}</small>
-        }
-      </form>
-    </p-card>
+  </div>
+  <div class="add-building-card">
+    <h3>Add New Building</h3>
+
+    <form [formGroup]="addBuildingForm" (ngSubmit)="onAddBuilding()" class="add-building-form">
+      <div class="form-row">
+        <p-floatlabel>
+          <input
+            pInputText
+            id="buildingName"
+            formControlName="name"
+            fluid
+            [class.ng-invalid]="buildingNameError" />
+          <label for="buildingName">Building Name</label>
+        </p-floatlabel>
+
+        <p-button
+          type="submit"
+          label="Add Building"
+          icon="pi pi-plus"
+          [disabled]="!isFormValid || isAddingBuilding"
+          [loading]="isAddingBuilding">
+        </p-button>
+      </div>
+
+      @if (buildingNameError) {
+        <small class="error-message">{{ buildingNameError }}</small>
+      }
+    </form>
   </div>
 
   <!-- Buildings List -->
@@ -71,7 +69,7 @@
                   <span class="stat-label">{{ building.floors.length === 1 ? 'Floor' : 'Floors' }}</span>
                 </div>
               </div>
-              
+
               <div class="stat-item">
                 <div class="stat-icon available">
                   <i class="pi pi-car"></i>
@@ -83,7 +81,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="building-summary">
             <div class="total-slots">
               <span class="total-number">{{ building.totalSlots }}</span>

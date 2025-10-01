@@ -6,8 +6,8 @@ import {
   matDirectionsCarOutline
 } from '@ng-icons/material-icons/outline'
 import { ButtonModule } from 'primeng/button';
-import { Vehicle, VEHICLE_ICONS } from '../../../models/vehicle';
 import { DatePipe, TitleCasePipe } from '@angular/common';
+import { VehicleResponse, VehicleType } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-user-vehicle',
@@ -21,33 +21,34 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
   })]
 })
 export class UserVehicleComponent {
-  vehicle = input.required<Vehicle>();
+  vehicle = input.required<VehicleResponse>();
 
   onDelete = output<string>();
   onPark = output<string>();
   onUnpark = output<string>();
 
+
   get vehicleIcon(): string {
-    return VEHICLE_ICONS[this.vehicle().vehicleType];
+    return this.vehicle().vehicle_type === VehicleType.FourWheeler ? "matDirectionsCarOutline" : "matDirectionsBikeOutline"
   }
 
   get parkingStatusText(): string {
-    return this.vehicle().isParked ? 'Unpark' : 'Park';
+    return this.vehicle().is_parked ? 'Unpark' : 'Park';
   }
 
   get parkingStatusSeverity(): 'primary' | 'secondary' {
-    return this.vehicle().isParked ? 'secondary' : 'primary';
+    return this.vehicle().is_parked ? 'secondary' : 'primary';
   }
 
   handleDelete(): void {
-    this.onDelete.emit(this.vehicle().id);
+    throw new Error('Method not implemented.');
   }
 
-  handleParkingAction(): void {
-    if (this.vehicle().isParked) {
-      this.onUnpark.emit(this.vehicle().id);
+  toggleParking(): void {
+    if (this.vehicle().is_parked) {
+      this.onUnpark.emit(this.vehicle().number_plate);
     } else {
-      this.onPark.emit(this.vehicle().id);
+      this.onPark.emit(this.vehicle().number_plate);
     }
   }
 }

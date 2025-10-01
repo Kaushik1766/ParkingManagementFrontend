@@ -36,6 +36,7 @@ export class SignupComponent implements OnInit {
     userName: new FormControl('', {
       validators: [
         Validators.required,
+        Validators.pattern('^[a-zA-Z0-9]{4,10}$')
       ],
       updateOn: 'blur'
     }),

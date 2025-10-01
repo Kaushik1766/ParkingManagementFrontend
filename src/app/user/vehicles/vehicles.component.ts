@@ -1,102 +1,92 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { UserVehicleComponent } from './user-vehicle/user-vehicle.component';
-import { Vehicle, VehicleType, ParkingSlot } from '../../models/vehicle';
+import { VehicleResponse } from '../../models/vehicle';
+import { VehicleService } from '../services/vehicle.service';
+import { toSignal } from '@angular/core/rxjs-interop'
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
+import { LoaderComponent } from '../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-vehicles',
-  imports: [UserVehicleComponent],
+  imports: [UserVehicleComponent, ToastModule, LoaderComponent],
   templateUrl: './vehicles.component.html',
-  styleUrl: './vehicles.component.scss'
+  styleUrl: './vehicles.component.scss',
+  providers: [MessageService]
 })
-export class VehiclesComponent {
-  vehicles: Vehicle[] = [
-    {
-      id: '1',
-      numberplate: 'up32kl8888',
-      vehicleType: VehicleType.TWO_WHEELER,
-      isParked: true,
-      parkingSlot: {
-        slotNumber: '2W01',
-        floor: 1,
-        building: 'Main Building',
-        parkedSince: new Date('2024-01-15T09:30:00')
-      }
-    },
-    {
-      id: '2',
-      numberplate: 'up32kl8888',
-      vehicleType: VehicleType.FOUR_WHEELER,
-      isParked: false,
-      parkingSlot: {
-        slotNumber: '2W01',
-        floor: 1,
-        building: 'Main Building',
-        parkedSince: new Date('2024-01-15T09:30:00')
-      }
-    },
-    {
-      id: '6',
-      numberplate: 'up32kl8888',
-      vehicleType: VehicleType.FOUR_WHEELER,
-      isParked: false,
-      parkingSlot: {
-        slotNumber: '2W01',
-        floor: 1,
-        building: 'Main Building',
-        parkedSince: new Date('2024-01-15T09:30:00')
-      }
-    },
-    {
-      id: '4',
-      numberplate: 'up32kl8888',
-      vehicleType: VehicleType.FOUR_WHEELER,
-      isParked: false,
-      parkingSlot: {
-        slotNumber: '2W01',
-        floor: 1,
-        building: 'Main Building',
-        parkedSince: new Date('2024-01-15T09:30:00')
-      }
-    },
-    {
-      id: '3',
-      numberplate: 'up32kl8888',
-      vehicleType: VehicleType.TWO_WHEELER,
-      isParked: true,
-      parkingSlot: {
-        slotNumber: '2W05',
-        floor: 2,
-        building: 'Annex',
-        parkedSince: new Date('2024-01-14T14:20:00')
-      }
-    }
-  ];
+export class VehiclesComponent implements OnInit {
+  private vehicleService = inject(VehicleService)
+  private messageService = inject(MessageService)
 
-  onVehicleDelete(vehicleId: string): void {
-    console.log('Delete vehicle:', vehicleId);
-    this.vehicles = this.vehicles.filter(v => v.id !== vehicleId);
+  vehicles: VehicleResponse[] = []
+  isLoading = signal(false)
+
+  ngOnInit(): void {
+    this.isLoading.set(true)
+    this.vehicleService.getRegisteredVehicles().subscribe({
+      next: (vehicles) => {
+        this.vehicles = vehicles
+        this.isLoading.set(false)
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoading.set(false)
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.message, life: 10000 });
+      }
+    })
   }
 
-  onVehiclePark(vehicleId: string): void {
-    console.log('Park vehicle:', vehicleId);
-    const vehicle = this.vehicles.find(v => v.id === vehicleId);
-    if (vehicle) {
-      vehicle.isParked = true;
-      vehicle.parkingSlot = {
-        slotNumber: 'AUTO01',
-        floor: 1,
-        building: 'Main Building',
-        parkedSince: new Date()
-      };
-    }
+  onVehicleDelete(numberplate: string): void {
+    throw new Error('Method not implemented.');
   }
 
-  onVehicleUnpark(vehicleId: string): void {
-    console.log('Unpark vehicle:', vehicleId);
-    const vehicle = this.vehicles.find(v => v.id === vehicleId);
-    if (vehicle) {
-      vehicle.isParked = false;
-      // vehicle.parkingSlot = undefined;
-    }
+  onVehiclePark(numberplate: string) {
+    this.isLoading.set(true);
+    this.vehicleService.parkVehicle(numberplate).subscribe({
+      next: val => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: `Vehicle ${numberplate} parked successfully with Ticket ID: ${val.ticketId}`,
+          life: 5000,
+        });
+        this.vehicles = this.vehicles.map(v => {
+          if (v.number_plate === numberplate) {
+            return { ...v, is_parked: true };
+          }
+          return v;
+        })
+        this.isLoading.set(false);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoading.set(false);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message, life: 10000 });
+      }
+    })
+  }
+
+  onVehicleUnpark(numberplate: string): void {
+    this.isLoading.set(true);
+    this.vehicleService.unparkVehicle(numberplate).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: `Vehicle unparked successfully`,
+          life: 5000,
+        });
+        this.vehicles = this.vehicles.map(v => {
+          if (v.number_plate === numberplate) {
+            return { ...v, is_parked: false };
+          }
+          return v;
+        })
+        this.isLoading.set(false);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoading.set(false);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message, life: 10000 });
+      }
+    })
   }
 }

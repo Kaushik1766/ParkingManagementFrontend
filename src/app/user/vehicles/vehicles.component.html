@@ -1,17 +1,19 @@
+<app-loader [isLoading]="isLoading()" />
+<p-toast />
 <div class="header">
   <h1>User Vehicles</h1>
   <h2>Manage your registered vehicles and parking</h2>
 </div>
 
 <div class="vehicles-container">
-  @for (vehicle of vehicles; track vehicle.id) {
-    <app-user-vehicle 
+  @for (vehicle of vehicles; track vehicle.number_plate) {
+    <app-user-vehicle
       [vehicle]="vehicle"
       (onDelete)="onVehicleDelete($event)"
       (onPark)="onVehiclePark($event)"
       (onUnpark)="onVehicleUnpark($event)" />
   }
-  
+
   @empty {
     <div class="empty-state">
       <p>No vehicles registered yet.</p>

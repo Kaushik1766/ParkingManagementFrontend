@@ -15,7 +15,7 @@ export function AuthInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
   }
   else {
     const authReq = req.clone({
-      headers: req.headers.set('Authentication', token as string)
+      headers: req.headers.set('Authorization', `Bearer ${token}`)
     })
     return next(authReq);
   }
