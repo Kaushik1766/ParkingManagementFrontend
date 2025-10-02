@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { BuildingService } from '../../services/building.service';
 import { Building } from '../../models/building';
 import { CardModule } from 'primeng/card';
@@ -30,14 +30,13 @@ export class BuildingsComponent implements OnInit {
   private buildingService = inject(BuildingService);
   private messageService = inject(MessageService);
   private destroyRef = inject(DestroyRef);
-  private fb = inject(FormBuilder);
 
   buildings: Building[] = [];
   isLoading = false;
   isAddingBuilding = false;
 
-  addBuildingForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(2)]]
+  addBuildingForm = new FormGroup({
+    buildingName: new FormControl('', [Validators.required, Validators.minLength(2)])
   });
 
   ngOnInit(): void {
@@ -68,7 +67,7 @@ export class BuildingsComponent implements OnInit {
   onAddBuilding(): void {
     if (this.addBuildingForm.valid) {
       this.isAddingBuilding = true;
-      const buildingName = this.addBuildingForm.get('name')?.value;
+      const buildingName = this.addBuildingForm.value.buildingName!;
 
       const subscription = this.buildingService.createBuilding({ name: buildingName }).subscribe({
         next: (newBuilding) => {
@@ -96,20 +95,8 @@ export class BuildingsComponent implements OnInit {
     }
   }
 
-  get isFormValid(): boolean {
-    return this.addBuildingForm.valid;
+  get isBuildingNameInvalid(): boolean {
+    return this.addBuildingForm.controls.buildingName.invalid;
   }
 
-  get buildingNameError(): string | null {
-    const nameControl = this.addBuildingForm.get('name');
-    if (nameControl?.touched && nameControl?.errors) {
-      if (nameControl.errors['required']) {
-        return 'Building name is required';
-      }
-      if (nameControl.errors['minlength']) {
-        return 'Building name must be at least 2 characters long';
-      }
-    }
-    return null;
-  }
 }

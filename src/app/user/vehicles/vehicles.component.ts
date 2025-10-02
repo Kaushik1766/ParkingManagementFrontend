@@ -7,15 +7,16 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoaderComponent } from '../../shared/loader/loader.component';
-import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabel } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 import { InputTextModule } from 'primeng/inputtext';
+import { Message } from "primeng/message";
 
 @Component({
   selector: 'app-vehicles',
-  imports: [UserVehicleComponent, ToastModule, LoaderComponent, ReactiveFormsModule, ButtonModule, FloatLabel, SelectModule, InputTextModule],
+  imports: [UserVehicleComponent, ToastModule, LoaderComponent, ReactiveFormsModule, ButtonModule, FloatLabel, SelectModule, InputTextModule, Message],
   templateUrl: './vehicles.component.html',
   styleUrl: './vehicles.component.scss',
   providers: [MessageService]
@@ -27,32 +28,59 @@ export class VehiclesComponent implements OnInit {
   vehicles: VehicleResponse[] = []
   isLoading = signal(false)
 
+  vehicleTypes:{
+    vehicleType:string,
+    value:number
+  }[]=[
+    {vehicleType:'TwoWheeler',value:0},
+    {vehicleType:'FourWheeler',value:1}
+  ]
+
   vehicleForm = new FormGroup({
-    numberPlate: new FormGroup('', {
+    numberPlate: new FormControl('', {
       validators: [
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(10),
-      ]
+      ],
+      updateOn: 'blur'
     }),
-    vehicleType: new FormGroup('')
+    vehicleType: new FormControl(-1, {
+      validators: [
+        Validators.required,
+        Validators.min(0),
+        Validators.max(1),
+      ],
+      updateOn: 'blur'
+    })
   })
 
   addVehicle() {
+    if(this.vehicleForm.valid){
+      this.isLoading.set(true)
+      this.vehicleService.addVehicle(this.vehicleForm.value.numberPlate!, this.vehicleForm.value.vehicleType!)
+      .subscribe({
+        next:()=>{
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Vehicle added successfully',
+            life: 10000,
+          });
+          this.vehicleForm.reset()
+          this.loadVehicles()
+          this.isLoading.set(false)
+        },
+        error:(err:HttpErrorResponse)=>{
+          this.isLoading.set(false)
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message, life: 10000 });
+        }
+      })
+    }
   }
 
-  ngOnInit(): void {
-    this.isLoading.set(true)
-    this.vehicleService.getRegisteredVehicles().subscribe({
-      next: (vehicles) => {
-        this.vehicles = vehicles
-        this.isLoading.set(false)
-      },
-      error: (err: HttpErrorResponse) => {
-        this.isLoading.set(false)
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.message, life: 10000 });
-      }
-    })
+  ngOnInit() {
+    this.loadVehicles();
   }
 
   onVehicleDelete(numberplate: string): void {
@@ -69,12 +97,13 @@ export class VehiclesComponent implements OnInit {
           detail: `Vehicle ${numberplate} parked successfully with Ticket ID: ${val.ticketId}`,
           life: 5000,
         });
-        this.vehicles = this.vehicles.map(v => {
-          if (v.number_plate === numberplate) {
-            return { ...v, is_parked: true };
-          }
-          return v;
-        })
+        // this.vehicles = this.vehicles.map(v => {
+        //   if (v.number_plate === numberplate) {
+        //     return { ...v, is_parked: true };
+        //   }
+        //   return v;
+        // })
+        this.loadVehicles();
         this.isLoading.set(false);
       },
       error: (err: HttpErrorResponse) => {
@@ -94,12 +123,13 @@ export class VehiclesComponent implements OnInit {
           detail: `Vehicle unparked successfully`,
           life: 5000,
         });
-        this.vehicles = this.vehicles.map(v => {
-          if (v.number_plate === numberplate) {
-            return { ...v, is_parked: false };
-          }
-          return v;
-        })
+        // this.vehicles = this.vehicles.map(v => {
+        //   if (v.number_plate === numberplate) {
+        //     return { ...v, is_parked: false };
+        //   }
+        //   return v;
+        // })
+        this.loadVehicles();
         this.isLoading.set(false);
       },
       error: (err: HttpErrorResponse) => {
@@ -107,5 +137,27 @@ export class VehiclesComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message, life: 10000 });
       }
     })
+  }
+
+  private loadVehicles() {
+    this.isLoading.set(true)
+    this.vehicleService.getRegisteredVehicles().subscribe({
+      next: (vehicles) => {
+        this.vehicles = vehicles
+        this.isLoading.set(false)
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoading.set(false)
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.message, life: 10000 });
+      }
+    })
+  }
+
+  get isNumberPlateInvalid():boolean{
+    return this.vehicleForm.controls.numberPlate.invalid && this.vehicleForm.controls.numberPlate.dirty;
+  }
+
+  get isVehicleTypeInvalid():boolean{
+    return this.vehicleForm.controls.vehicleType.invalid && this.vehicleForm.controls.vehicleType.dirty;
   }
 }

@@ -37,35 +37,51 @@
 
 .add-building-card {
   width: 100%;
-  height: 50%;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  background: var(--p-surface-0);
   border: 1px solid var(--p-surface-200);
   border-radius: var(--p-border-radius-lg);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  padding: 5px 20px;
+  padding: 2rem;
 
   h3 {
-    color: var(--p-primary-700);
-    font-size: 1.25rem;
+    margin: 0 0 1.5rem 0;
+    color: var(--p-surface-800);
+    font-size: 1.375rem;
     font-weight: 600;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
   }
 
   .add-building-form {
     .form-row {
       display: flex;
-      flex-direction: row;
       gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
+      align-items: flex-end;
       margin-bottom: 0.5rem;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      p-floatlabel {
+        flex: 1;
+      }
+
+      // p-button {
+      //   flex-shrink: 2;
+      //   min-width: 140px;
+        
+      //   @media (max-width: 768px) {
+      //     margin-top: 1rem;
+      //   }
+      // }
     }
 
-    .error-message {
-      color: var(--p-red-500);
-      font-size: 0.875rem;
-      margin-top: 0.25rem;
-      display: block;
-    }
   }
 }
 

@@ -2,7 +2,7 @@
 
   <!-- signup img -->
   <div class="signup-img">
-    <img [src]="themingService.currentTheme=='dark'?'parkingImgDark.webp':'parkingImg.jpeg'" alt="image">
+    <img [src]="themingService.currentTheme=='dark'?'ParkingImgDark.png':'ParkingImgLight.png'" alt="image">
     <div class="overlay">
     </div>
   </div>
@@ -23,14 +23,14 @@
         <p-floatlabel variant="on" class="text-accent">
           <input pInputText id="userName" autocomplete="off" name="userName" fluid  formControlName="userName" />
           @if(isUserNameValid){
-            <p-message severity="error" variant="simple" size="small">Please enter a non null username</p-message>
+            <p-message severity="error" variant="simple" size="small">Please enter a non empty username</p-message>
           }
           <label for="userName">UserName</label>
         </p-floatlabel>
         <p-floatlabel variant="on">
           <p-password [toggleMask]="true" inputId="password" name="password" [feedback]='false' fluid formControlName="password"  />
           @if(isPasswordValid){
-            <p-message severity="error" variant="simple" size="small">Please enter a non null password</p-message>
+            <p-message severity="error" variant="simple" size="small">Please enter a non empty password</p-message>
           }
           <label for="password">Password</label>
         </p-floatlabel>
@@ -42,7 +42,7 @@
           }
           <label for="officeName">OfficeName</label>
         </p-floatlabel>
-        <p-button [disabled]="isLoading" type="submit" styleClass="w-full" >Submit</p-button>
+        <p-button [disabled]="isLoading || this.signupForm.invalid" type="submit" styleClass="w-full" >Submit</p-button>
       </form>
 
       <div>

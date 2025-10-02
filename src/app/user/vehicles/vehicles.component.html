@@ -6,16 +6,22 @@
 </div>
 
 <div class="add-vehicle">
+  <h3>Register Vehicle</h3>
   <form [formGroup]="this.vehicleForm" (submit)="addVehicle()" >
-    <p-floatlabel variant="on">
-      <input pInputText id="on_label" autocomplete="off" />
-      <label for="on_label">On Label</label>
-    </p-floatlabel>
-    <p-floatlabel variant="on" class="text-accent">
-      <p-select [options]="['TwoWheeler','FourWheeler']" formControlName="office" fluid placeholder="Please select your office" />
-      <label for="officeName">OfficeName</label>
-    </p-floatlabel>
-    <p-button type="submit">Register Vehicle</p-button>
+    <div class="form-inputs">
+      <p-floatlabel variant="on">
+        <input pInputText id="numberplate" formControlName="numberPlate" fluid autocomplete="off" />
+        @if(isNumberPlateInvalid){
+          <p-message severity="error" variant="simple" size="small">Please enter a valid number plate</p-message>
+        }
+        <label for="numberplate">Number Plate</label>
+      </p-floatlabel>
+      <p-floatlabel variant="on" class="text-accent">
+        <p-select [options]="vehicleTypes" optionLabel="vehicleType" optionValue="value" formControlName="vehicleType" fluid placeholder="Please select your vehicle type"  />
+        <label for="vehicleType">Vehicle Type</label>
+      </p-floatlabel>
+    </div>
+    <p-button type="submit" [disabled]="this.vehicleForm.invalid">Register Vehicle</p-button>
   </form>
 </div>
 

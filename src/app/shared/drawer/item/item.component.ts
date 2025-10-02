@@ -1,5 +1,5 @@
 import { Component, Inject, inject, Input, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-drawer-item',
@@ -12,4 +12,9 @@ export class ItemComponent {
   @Input({ required: true }) title!: string;
   @Input({ required: true }) iconName!: string;
 
+  private router = inject(Router)
+
+  get isActiveRoute(): boolean{
+    return this.router.url.includes(this.link)
+  }
 }

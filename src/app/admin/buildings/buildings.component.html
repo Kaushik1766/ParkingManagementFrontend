@@ -12,15 +12,15 @@
   <div class="add-building-card">
     <h3>Add New Building</h3>
 
-    <form [formGroup]="addBuildingForm" (ngSubmit)="onAddBuilding()" class="add-building-form">
+    <form [formGroup]="this.addBuildingForm" (ngSubmit)="onAddBuilding()" class="add-building-form">
       <div class="form-row">
-        <p-floatlabel>
+        <p-floatlabel variant="on">
           <input
             pInputText
             id="buildingName"
-            formControlName="name"
-            fluid
-            [class.ng-invalid]="buildingNameError" />
+            formControlName="buildingName"
+            fluid />
+
           <label for="buildingName">Building Name</label>
         </p-floatlabel>
 
@@ -28,14 +28,10 @@
           type="submit"
           label="Add Building"
           icon="pi pi-plus"
-          [disabled]="!isFormValid || isAddingBuilding"
+          [disabled]="isBuildingNameInvalid"
           [loading]="isAddingBuilding">
         </p-button>
       </div>
-
-      @if (buildingNameError) {
-        <small class="error-message">{{ buildingNameError }}</small>
-      }
     </form>
   </div>
 

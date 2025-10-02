@@ -1,0 +1,92 @@
+<div class="parking-history-container">
+  <div class="header">
+    <h1>Parking History</h1>
+    <h2>View your past parking sessions</h2>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading-state">
+      <p>Loading parking history...</p>
+    </div>
+  }
+
+  @if (!isLoading && parkingHistory.length === 0) {
+    <div class="empty-state">
+      <h3>No Parking History</h3>
+      <p>You haven't parked any vehicles yet.</p>
+    </div>
+  }
+
+  @if (!isLoading && parkingHistory.length > 0) {
+    <div class="history-list">
+      @for (record of parkingHistory; track record.TicketId) {
+        <div class="history-card">
+          <div class="card-header">
+            <div class="vehicle-info">
+              <div class="numberplate">
+                <h3>{{ record.NumberPlate }}</h3>
+                <p-tag 
+                  [value]="getVehicleTypeText(record.VechicleType)"
+                  [severity]="getVehicleTypeSeverity(record.VechicleType)"
+                  [icon]="'pi ' + getVehicleTypeIcon(record.VechicleType)">
+                </p-tag>
+              </div>
+            </div>
+            <div class="duration-chip">
+              <p-chip 
+                [label]="calculateDuration(record.StartTime, record.EndTime)"
+                icon="pi pi-clock">
+              </p-chip>
+            </div>
+          </div>
+
+          <p-divider></p-divider>
+
+          <div class="card-content">
+            <div class="location-info">
+              <div class="info-item">
+                <i class="pi pi-building"></i>
+                <div class="info-details">
+                  <span class="label">Building</span>
+                  <span class="value">{{ getBuildingName(record.BuildingId) }}</span>
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <i class="pi pi-list"></i>
+                <div class="info-details">
+                  <span class="label">Floor</span>
+                  <span class="value">{{ record.FLoorNumber }}</span>
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <i class="pi pi-map-marker"></i>
+                <div class="info-details">
+                  <span class="label">Slot</span>
+                  <span class="value">{{ record.SlotNumber }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="time-info">
+              <div class="time-item">
+                <span class="time-label">Parked At</span>
+                <span class="time-value">{{ formatDateTime(record.StartTime) }}</span>
+              </div>
+              
+              <div class="time-item">
+                <span class="time-label">Left At</span>
+                <span class="time-value">{{ formatDateTime(record.EndTime) }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <small class="ticket-id">Ticket ID: {{ record.TicketId }}</small>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

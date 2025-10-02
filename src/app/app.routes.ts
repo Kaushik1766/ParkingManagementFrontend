@@ -45,6 +45,10 @@ export const routes: Routes = [
       {
         path: 'vehicles',
         loadComponent: () => import('./user/vehicles/vehicles.component').then(m => m.VehiclesComponent),
+      },
+      {
+        path: 'parkingHistory',
+        loadComponent: () => import('./user/parking-history/parking-history.component').then(m => m.ParkingHistoryComponent),
       }
     ]
   },

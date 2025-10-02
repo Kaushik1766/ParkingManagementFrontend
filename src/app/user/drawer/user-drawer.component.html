@@ -1,6 +1,7 @@
 <app-drawer-layout [(visible)]="visible">
-  <div>
-    <app-drawer-item link="vehicles" title='Vehicles' iconName='pi-bars' />
+  <div class="drawer-items">
+    <app-drawer-item link="vehicles" title='Vehicles' iconName='pi-car' />
+    <app-drawer-item link="parkingHistory" title='Parking History' iconName='pi-calendar' />
   </div>
 </app-drawer-layout>
 <router-outlet />
