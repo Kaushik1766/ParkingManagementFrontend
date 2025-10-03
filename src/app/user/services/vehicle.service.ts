@@ -26,10 +26,14 @@ export class VehicleService {
     return this.httpClient.patch(`parkings/${numberplate}/unpark`, {})
   }
 
-  addVehicle(numberPlate:string, vehicleType:number){
-    return this.httpClient.post('vehicles',{
-      numberplate:numberPlate,
-      type:vehicleType
+  addVehicle(numberPlate: string, vehicleType: number) {
+    return this.httpClient.post('vehicles', {
+      numberplate: numberPlate,
+      type: vehicleType
     })
+  }
+
+  deleteVehicle(numberPlate: string) {
+    return this.httpClient.delete(`vehicles/${numberPlate}`)
   }
 }

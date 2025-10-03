@@ -1,17 +1,19 @@
 .loading-overlay {
+  // height: 100%;
   height: calc(100% - 4rem);
   width: 100%;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(3px);
-  position: absolute;
+  position: fixed;
   z-index: 20;
   display: flex;
   align-items: center;
   justify-content: center;
+  // translate: 0 -4rem;
 
   i {
     font-size: 2rem;
     color: var(--p-primary-600);
-    translate: 0  -4rem;
+    translate: 0 -4rem;
   }
 }

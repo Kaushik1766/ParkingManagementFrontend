@@ -28,13 +28,13 @@ export class VehiclesComponent implements OnInit {
   vehicles: VehicleResponse[] = []
   isLoading = signal(false)
 
-  vehicleTypes:{
-    vehicleType:string,
-    value:number
-  }[]=[
-    {vehicleType:'TwoWheeler',value:0},
-    {vehicleType:'FourWheeler',value:1}
-  ]
+  vehicleTypes: {
+    vehicleType: string,
+    value: number
+  }[] = [
+      { vehicleType: 'TwoWheeler', value: 0 },
+      { vehicleType: 'FourWheeler', value: 1 }
+    ]
 
   vehicleForm = new FormGroup({
     numberPlate: new FormControl('', {
@@ -56,26 +56,26 @@ export class VehiclesComponent implements OnInit {
   })
 
   addVehicle() {
-    if(this.vehicleForm.valid){
+    if (this.vehicleForm.valid) {
       this.isLoading.set(true)
       this.vehicleService.addVehicle(this.vehicleForm.value.numberPlate!, this.vehicleForm.value.vehicleType!)
-      .subscribe({
-        next:()=>{
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Vehicle added successfully',
-            life: 10000,
-          });
-          this.vehicleForm.reset()
-          this.loadVehicles()
-          this.isLoading.set(false)
-        },
-        error:(err:HttpErrorResponse)=>{
-          this.isLoading.set(false)
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message, life: 10000 });
-        }
-      })
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Vehicle added successfully',
+              life: 10000,
+            });
+            this.vehicleForm.reset()
+            this.loadVehicles()
+            this.isLoading.set(false)
+          },
+          error: (err: HttpErrorResponse) => {
+            this.isLoading.set(false)
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message, life: 10000 });
+          }
+        })
     }
   }
 
@@ -84,7 +84,23 @@ export class VehiclesComponent implements OnInit {
   }
 
   onVehicleDelete(numberplate: string): void {
-    throw new Error('Method not implemented.');
+    this.isLoading.set(true)
+    this.vehicleService.deleteVehicle(numberplate).subscribe({
+      next: () => {
+        this.messageService.add({
+          life: 10000,
+          severity: 'success',
+          summary: 'Success',
+          detail: `Vehicle deleted successfully`
+        })
+        this.loadVehicles();
+        this.isLoading.set(false);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoading.set(false);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message, life: 10000 });
+      }
+    })
   }
 
   onVehiclePark(numberplate: string) {
@@ -97,12 +113,6 @@ export class VehiclesComponent implements OnInit {
           detail: `Vehicle ${numberplate} parked successfully with Ticket ID: ${val.ticketId}`,
           life: 5000,
         });
-        // this.vehicles = this.vehicles.map(v => {
-        //   if (v.number_plate === numberplate) {
-        //     return { ...v, is_parked: true };
-        //   }
-        //   return v;
-        // })
         this.loadVehicles();
         this.isLoading.set(false);
       },
@@ -123,12 +133,6 @@ export class VehiclesComponent implements OnInit {
           detail: `Vehicle unparked successfully`,
           life: 5000,
         });
-        // this.vehicles = this.vehicles.map(v => {
-        //   if (v.number_plate === numberplate) {
-        //     return { ...v, is_parked: false };
-        //   }
-        //   return v;
-        // })
         this.loadVehicles();
         this.isLoading.set(false);
       },
@@ -153,11 +157,11 @@ export class VehiclesComponent implements OnInit {
     })
   }
 
-  get isNumberPlateInvalid():boolean{
+  get isNumberPlateInvalid(): boolean {
     return this.vehicleForm.controls.numberPlate.invalid && this.vehicleForm.controls.numberPlate.dirty;
   }
 
-  get isVehicleTypeInvalid():boolean{
+  get isVehicleTypeInvalid(): boolean {
     return this.vehicleForm.controls.vehicleType.invalid && this.vehicleForm.controls.vehicleType.dirty;
   }
 }

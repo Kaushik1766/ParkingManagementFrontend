@@ -13,8 +13,21 @@ export class ItemComponent {
   @Input({ required: true }) iconName!: string;
 
   private router = inject(Router)
+  isClicked = false
 
-  get isActiveRoute(): boolean{
+  // isActive = false
+  //
+  // ngOnInit() {
+  //   this.isActive = this.router.url.includes(this.link)
+  //   this.router.events.subscribe({
+  //     next: () => {
+  //       this.isActive = this.router.url.includes(this.link)
+  //     }
+  //   })
+  // }
+
+  get isActiveRoute(): boolean {
     return this.router.url.includes(this.link)
   }
+
 }

@@ -41,7 +41,7 @@ export class UserVehicleComponent {
   }
 
   handleDelete(): void {
-    throw new Error('Method not implemented.');
+    this.onDelete.emit(this.vehicle().number_plate)
   }
 
   toggleParking(): void {
