@@ -68,6 +68,7 @@ export class VehiclesComponent implements OnInit {
               life: 10000,
             });
             this.vehicleForm.reset()
+            this.vehicleForm.controls.vehicleType.setValue(-1)
             this.loadVehicles()
             this.isLoading.set(false)
           },
