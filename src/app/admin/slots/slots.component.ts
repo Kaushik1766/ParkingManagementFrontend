@@ -8,6 +8,8 @@ import { TagModule } from 'primeng/tag';
 import { ChipModule } from 'primeng/chip';
 import { TooltipModule } from 'primeng/tooltip';
 import { MessageService } from 'primeng/api';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { matTwoWheeler, matDirectionsCar } from '@ng-icons/material-icons/baseline';
 import { SlotResponse, SlotOverview } from '../../models/slot';
 import { SlotService } from '../services/slot.service';
 
@@ -20,9 +22,10 @@ import { SlotService } from '../services/slot.service';
     ToastModule,
     TagModule,
     ChipModule,
-    TooltipModule
+    TooltipModule,
+    NgIconComponent
   ],
-  providers: [MessageService],
+  providers: [MessageService, provideIcons({ matTwoWheeler, matDirectionsCar })],
   templateUrl: './slots.component.html',
   styleUrl: './slots.component.scss'
 })
@@ -116,7 +119,7 @@ export class SlotsComponent implements OnInit {
   }
 
   getSlotIcon(slot: SlotResponse): string {
-    return slot.slotType === 'TwoWheeler' ? 'pi-car' : 'pi-truck';
+    return slot.slotType === 'TwoWheeler' ? 'matTwoWheeler' : 'matDirectionsCar';
   }
 
   getOccupancySeverity(percentage: number): 'success' | 'warning' | 'danger' {

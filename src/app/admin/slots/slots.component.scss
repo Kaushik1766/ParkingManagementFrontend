@@ -65,6 +65,27 @@
       gap: 1rem;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       border: 2px solid;
+      position: relative;
+
+      .card-bg{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 0;
+        background-color: var(--p-primary-600);
+        opacity: 0.2;
+        // .card-bg-overlay{
+        //   background-color: red;
+        //   position: absolute;
+        //   top: 0;
+        //   left: 0;
+        //   width: 2rem;
+        //   height: 2rem;
+        //   opacity: 0.03;
+        //   z-index: 5;
+        // }
+      }
 
       &.total {
         border-color: var(--p-primary-200);
@@ -362,7 +383,7 @@
           border-color: var(--p-green-400);
         }
 
-        .slot-icon i {
+        .slot-icon ng-icon {
           color: var(--p-green-600);
         }
 
@@ -379,7 +400,7 @@
           border-color: var(--p-red-400);
         }
 
-        .slot-icon i {
+        .slot-icon ng-icon {
           color: var(--p-red-600);
         }
       }
@@ -404,7 +425,7 @@
         justify-content: center;
         background: var(--p-surface-100);
 
-        i {
+        ng-icon {
           font-size: 1.5rem;
         }
       }

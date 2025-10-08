@@ -38,8 +38,8 @@
                 </p-chip>
                 <p-chip 
                   [label]="building.availableSlots + '/' + building.totalSlots + ' Available'"
-                  icon="pi pi-car"
                   [styleClass]="building.availableSlots > 0 ? 'chip-available' : 'chip-full'">
+                  <ng-icon name="matDomain" size="16" slot="icon"></ng-icon>
                 </p-chip>
               </div>
             </div>
@@ -135,8 +135,8 @@
                               <div class="slot-footer">
                                 <p-chip 
                                   [label]="slot.slotType === 'TwoWheeler' ? '2-Wheeler' : '4-Wheeler'"
-                                  [styleClass]="slot.slotType === 'TwoWheeler' ? 'chip-two-wheeler' : 'chip-four-wheeler'"
-                                  [icon]="'pi ' + getSlotIcon(slot)">
+                                  [styleClass]="slot.slotType === 'TwoWheeler' ? 'chip-two-wheeler' : 'chip-four-wheeler'">
+                                  <ng-icon [name]="getSlotIcon(slot)" size="16" slot="icon"></ng-icon>
                                 </p-chip>
                               </div>
                             </div>

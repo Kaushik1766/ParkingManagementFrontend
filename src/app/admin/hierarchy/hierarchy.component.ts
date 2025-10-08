@@ -7,6 +7,8 @@ import { TagModule } from 'primeng/tag';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { matTwoWheeler, matDirectionsCar, matDomain } from '@ng-icons/material-icons/baseline';
 import { Building } from '../../models/building';
 import { FloorResponse } from '../../models/floor';
 import { SlotResponse } from '../../models/slot';
@@ -33,9 +35,13 @@ interface FloorHierarchy extends FloorResponse {
     ChipModule,
     TagModule,
     SkeletonModule,
-    ToastModule
+    ToastModule,
+    NgIconComponent
   ],
-  providers: [MessageService],
+  providers: [
+    MessageService,
+    provideIcons({ matTwoWheeler, matDirectionsCar, matDomain })
+  ],
   templateUrl: './hierarchy.component.html',
   styleUrl: './hierarchy.component.scss'
 })
@@ -142,6 +148,6 @@ export class HierarchyComponent implements OnInit {
   }
 
   getSlotIcon(slot: SlotResponse): string {
-    return slot.slotType === 'TwoWheeler' ? 'pi-car' : 'pi-truck';
+    return slot.slotType === 'TwoWheeler' ? 'matTwoWheeler' : 'matDirectionsCar';
   }
 }
