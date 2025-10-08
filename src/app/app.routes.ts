@@ -11,7 +11,6 @@ import { UserDrawerComponent } from './user/drawer/user-drawer.component';
 import { AdminDrawerComponent } from './admin/drawer/admin-drawer.component';
 import { RetryLoaderComponent } from './loaderTest/retry-loader/retry-loader.component';
 import { ParkingHistoryComponent } from './user/parking-history/parking-history.component';
-import { FloorsComponent } from './admin/floors/floors/floors.component';
 
 export const routes: Routes = [
   {
@@ -69,7 +68,11 @@ export const routes: Routes = [
       },
       {
         path: 'buildings/:buildingId/floors',
-        component: FloorsComponent,
+        loadComponent: () => import('./admin/floors/floors.component').then(m => m.FloorsComponent),
+      },
+      {
+        path: 'buildings/:buildingId/floors/:floorId/slots',
+        loadComponent: () => import('./admin/slots/slots.component').then(m => m.SlotsComponent),
       }
     ]
   },

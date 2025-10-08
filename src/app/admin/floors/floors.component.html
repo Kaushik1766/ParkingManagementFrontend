@@ -1,0 +1,190 @@
+<app-loader [isLoading]="isLoading" />
+<p-toast />
+
+<div class="floors-container">
+  <div class="header-section">
+    <div class="header">
+      <h1>Floor Management</h1>
+      <h2>Manage floors and parking slots</h2>
+    </div>
+  </div>
+
+  <div class="add-floor-card">
+    <h3>Add New Floor</h3>
+
+    <form [formGroup]="floorFormGroup" (ngSubmit)="onAddFloor()" class="add-floor-form">
+      <div class="form-row">
+        <p-floatlabel variant="on">
+          <p-inputnumber 
+            inputId="floorNumber"
+            formControlName="floorNumber" 
+            fluid
+            [class.ng-invalid]="floorNumberError" />
+          <label for="floorNumber">Floor Number</label>
+        </p-floatlabel>
+
+        <p-button
+          type="submit"
+          label="Add Floor"
+          icon="pi pi-plus"
+          [disabled]="!isFormValid || isLoading"
+          [loading]="isLoading">
+        </p-button>
+      </div>
+
+      @if (floorNumberError) {
+        <small class="error-message">{{ floorNumberError }}</small>
+      }
+    </form>
+  </div>
+
+  @if (!isLoading && floors.length === 0) {
+    <div class="empty-state">
+      <h3>No Floors Found</h3>
+      <p>Create your first floor using the form above.</p>
+    </div>
+  }
+
+  @if (!isLoading && floors.length > 0) {
+    <div class="floors-list">
+      @for (floor of floors; track floor.floorNumber+' '+floor.buildingId) {
+        <div class="floor-card">
+          <div class="floor-header">
+            <div class="floor-info">
+              <div class="floor-number">
+                <i class="pi pi-building"></i>
+                <h3>Floor {{ floor.floorNumber }}</h3>
+              </div>
+              <p-tag 
+                [value]="getOccupancyPercentage(floor) + '% Assigned'"
+                [severity]="getOccupancySeverity(getOccupancyPercentage(floor))">
+              </p-tag>
+            </div>
+          </div>
+
+          <div class="floor-content">
+            <div class="stats-grid">
+              <div class="stat-card available">
+                <div class="stat-icon">
+                  <i class="pi pi-check-circle"></i>
+                </div>
+                <div class="stat-details">
+                  <span class="stat-value">{{ floor.availableSlots }}</span>
+                  <span class="stat-label">Available Slots</span>
+                </div>
+              </div>
+
+              <div class="stat-card total">
+                <div class="stat-icon">
+                  <i class="pi pi-car"></i>
+                </div>
+                <div class="stat-details">
+                  <span class="stat-value">{{ floor.totalSlots }}</span>
+                  <span class="stat-label">Total Slots</span>
+                </div>
+              </div>
+
+              <div class="stat-card occupied">
+                <div class="stat-icon">
+                  <i class="pi pi-ban"></i>
+                </div>
+                <div class="stat-details">
+                  <span class="stat-value">{{ floor.totalSlots - floor.availableSlots }}</span>
+                  <span class="stat-label">Assigned Slots</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="office-assignment">
+              @if (floor.assignedOffice) {
+                <div class="assigned-office">
+                  <div class="office-info">
+                    <i class="pi pi-briefcase"></i>
+                    <div class="office-details">
+                      <span class="office-label">Assigned Office</span>
+                      <span class="office-name">{{ floor.assignedOffice }}</span>
+                    </div>
+                  </div>
+                  <p-button 
+                    icon="pi pi-eye"
+                    [outlined]="true"
+                    size="small"
+                    severity="secondary"
+                    label="View Slots"
+                    (onClick)="onViewSlots(floor)">
+                  </p-button>
+                </div>
+              } @else {
+                <div class="unassigned-office">
+                  <div class="unassigned-info">
+                    <i class="pi pi-info-circle"></i>
+                    <span>No office assigned to this floor</span>
+                  </div>
+                  <p-button 
+                    icon="pi pi-plus"
+                    size="small"
+                    label="Assign Office"
+                    (onClick)="onAssignOffice(floor)">
+                  </p-button>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<!-- Assign Office Dialog -->
+<p-dialog 
+  [(visible)]="showAssignOfficeDialog"
+  [modal]="true"
+  [closable]="false"
+  [draggable]="false"
+  styleClass="assign-office-dialog"
+  header="Assign Office">
+  
+  <div class="dialog-content">
+    <p class="dialog-description">
+      @if (selectedFloor) {
+        Assign an office to <strong>Floor {{ selectedFloor.floorNumber }}</strong>
+      }
+    </p>
+
+    <form [formGroup]="assignOfficeFormGroup" class="office-form">
+      <p-floatlabel variant="on">
+        <input 
+          pInputText
+          id="officeName"
+          formControlName="officeName"
+          [class.ng-invalid]="officeNameError"
+          class="office-input" />
+        <label for="officeName">Office Name</label>
+      </p-floatlabel>
+
+      @if (officeNameError) {
+        <small class="error-message">{{ officeNameError }}</small>
+      }
+    </form>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      <p-button 
+        label="Cancel"
+        severity="secondary"
+        [outlined]="true"
+        (onClick)="onCancelAssignOffice()"
+        [disabled]="isAssigningOffice">
+      </p-button>
+      <p-button 
+        label="Assign Office"
+        icon="pi pi-check"
+        (onClick)="onConfirmAssignOffice()"
+        [disabled]="!isAssignOfficeFormValid || isAssigningOffice"
+        [loading]="isAssigningOffice">
+      </p-button>
+    </div>
+  </ng-template>
+</p-dialog>

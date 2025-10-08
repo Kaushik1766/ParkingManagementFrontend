@@ -111,7 +111,7 @@ export class VehiclesComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: `Vehicle ${numberplate} parked successfully with Ticket ID: ${val.ticketId}`,
+          detail: "Vehicle parked successfully",
           life: 5000,
         });
         this.loadVehicles();

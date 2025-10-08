@@ -1,0 +1,172 @@
+<p-toast />
+
+<div class="slots-container">
+  <!-- Header -->
+  <div class="header-section">
+    <div class="header">
+      <h1>Slot Management</h1>
+      <h2>Parking slot overview and map</h2>
+    </div>
+  </div>
+
+  <!-- Overview Section -->
+  @if (overview && !isLoading) {
+    <div class="overview-section">
+      <div class="overview-grid">
+        <!-- Total Slots -->
+        <div class="overview-card total">
+          <div class="card-icon">
+            <i class="pi pi-th-large"></i>
+          </div>
+          <div class="card-content">
+            <div class="card-value">{{ overview.totalSlots }}</div>
+            <div class="card-label">Total Slots</div>
+          </div>
+        </div>
+
+        <!-- Available Slots -->
+        <div class="overview-card available">
+          <div class="card-icon">
+            <i class="pi pi-check-circle"></i>
+          </div>
+          <div class="card-content">
+            <div class="card-value">{{ overview.availableSlots }}</div>
+            <div class="card-label">Available</div>
+          </div>
+        </div>
+
+        <!-- Occupied Slots -->
+        <div class="overview-card occupied">
+          <div class="card-icon">
+            <i class="pi pi-ban"></i>
+          </div>
+          <div class="card-content">
+            <div class="card-value">{{ overview.occupiedSlots }}</div>
+            <div class="card-label">Occupied</div>
+          </div>
+        </div>
+
+        <!-- Occupancy Percentage -->
+        <div class="overview-card percentage">
+          <div class="card-icon">
+            <i class="pi pi-chart-pie"></i>
+          </div>
+          <div class="card-content">
+            <div class="card-value">{{ overview.occupancyPercentage }}%</div>
+            <div class="card-label">Occupancy</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vehicle Type Stats -->
+      <div class="vehicle-stats">
+        <!-- Two Wheeler Stats -->
+        <div class="vehicle-stat-card two-wheeler">
+          <div class="vehicle-header">
+            <i class="pi pi-car"></i>
+            <h3>Two Wheeler Slots</h3>
+          </div>
+          <div class="vehicle-stats-grid">
+            <div class="stat-item">
+              <span class="stat-label">Total</span>
+              <span class="stat-value">{{ overview.twoWheelerStats.total }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Available</span>
+              <span class="stat-value available">{{ overview.twoWheelerStats.available }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Occupied</span>
+              <span class="stat-value occupied">{{ overview.twoWheelerStats.occupied }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Four Wheeler Stats -->
+        <div class="vehicle-stat-card four-wheeler">
+          <div class="vehicle-header">
+            <i class="pi pi-truck"></i>
+            <h3>Four Wheeler Slots</h3>
+          </div>
+          <div class="vehicle-stats-grid">
+            <div class="stat-item">
+              <span class="stat-label">Total</span>
+              <span class="stat-value">{{ overview.fourWheelerStats.total }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Available</span>
+              <span class="stat-value available">{{ overview.fourWheelerStats.available }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Occupied</span>
+              <span class="stat-value occupied">{{ overview.fourWheelerStats.occupied }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Slot Map Section -->
+  <div class="slot-map-section">
+    <div class="section-header">
+      <h3><i class="pi pi-map"></i> Slot Map</h3>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-box available"></div>
+          <span>Available</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-box occupied"></div>
+          <span>Occupied</span>
+        </div>
+        <div class="legend-item">
+          <i class="pi pi-car legend-icon"></i>
+          <span>2-Wheeler</span>
+        </div>
+        <div class="legend-item">
+          <i class="pi pi-truck legend-icon"></i>
+          <span>4-Wheeler</span>
+        </div>
+      </div>
+    </div>
+
+    @if (!isLoading && slots.length > 0) {
+      <div class="slot-map">
+        @for (slot of slots; track slot.slotNumber) {
+          <div 
+            class="slot-card"
+            [class.occupied]="slot.isAssigned && slot.parkingStatus"
+            [class.available]="!slot.isAssigned || !slot.parkingStatus"
+            [class.two-wheeler]="slot.slotType === 'TwoWheeler'"
+            [class.four-wheeler]="slot.slotType === 'FourWheeler'"
+            [pTooltip]="getSlotTooltip(slot)"
+            tooltipPosition="top">
+            
+            <div class="slot-number">{{ slot.slotNumber }}</div>
+            
+            <div class="slot-icon">
+              <i [class]="'pi ' + getSlotIcon(slot)"></i>
+            </div>
+
+            @if (slot.isAssigned && slot.parkingStatus) {
+              <div class="slot-info">
+                <div class="vehicle-plate">{{ slot.parkingStatus.numberPlate }}</div>
+                <div class="parking-time">{{ getParkingDuration(slot.parkingStatus.parkedAt) }}</div>
+              </div>
+            } @else {
+              <div class="slot-status">Available</div>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    @if (!isLoading && slots.length === 0) {
+      <div class="empty-state">
+        <h3>No Slots Found</h3>
+        <p>No parking slots available for this floor.</p>
+      </div>
+    }
+  </div>
+</div>
