@@ -19,8 +19,12 @@ export class AuthService {
   constructor() {
     const token = localStorage.getItem('token')
 
-    if (token) {
-      this.userSignal.set(this.tokenParser(token))
+    try {
+      if (token) {
+        this.userSignal.set(this.tokenParser(token))
+      }
+    } catch (e) {
+      console.log('token invalid or expired')
     }
   }
 
@@ -51,6 +55,9 @@ export class AuthService {
 
   private tokenParser(token: string): User {
     const decoded = jwtDecode<JwtPayload>(token)
+    if (decoded.exp > Date.now()) {
+      throw new Error('token expired')
+    }
     return {
       email: decoded.email,
       id: decoded.jti,

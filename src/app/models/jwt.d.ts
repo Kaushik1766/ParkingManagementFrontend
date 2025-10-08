@@ -3,4 +3,5 @@ type JwtPayload = {
   email: string;
   role: number;
   office: string;
+  exp: number;
 }

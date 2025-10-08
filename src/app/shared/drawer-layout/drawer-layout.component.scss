@@ -1,3 +1,69 @@
+@use '../../../styles/mixins';
+
+.header {
+  display: flex;
+  position: sticky;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  top: 0;
+  z-index: 10;
+  flex-direction: row;
+  width: 100%;
+  border-bottom: 2px solid var(--p-surface-200);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+
+  .left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 20px;
+
+    .logo {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+      gap: 8px;
+
+      h1 {
+        font-size: 1.5rem;
+        color: var(--p-primary-800);
+      }
+
+      img {
+        height: 2rem;
+        width: 2rem;
+        border-radius: 100%;
+      }
+    }
+  }
+
+
+  .right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 10px;
+
+    .email {
+      display: none;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+      gap: 10px;
+      color: var(--p-surface-500);
+
+      @include mixins.sm() {
+        display: flex;
+      }
+    }
+  }
+}
 
 .drawer-content {
   display: flex;
@@ -65,63 +131,6 @@
     .user-role {
       font-weight: bold;
       font-size: small;
-    }
-  }
-}
-
-
-.header {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  border-bottom: 2px solid var(--p-surface-200);
-
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
-
-  .left {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    gap: 20px;
-
-    .logo {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-evenly;
-      gap: 8px;
-
-      h1 {
-        font-size: 1.5rem;
-        color: var(--p-primary-800);
-      }
-
-      img {
-        height: 2rem;
-        width: 2rem;
-        border-radius: 100%;
-      }
-    }
-  }
-
-
-  .right {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    gap: 10px;
-
-    .email {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-evenly;
-      gap: 10px;
-      color: var(--p-surface-500);
     }
   }
 }

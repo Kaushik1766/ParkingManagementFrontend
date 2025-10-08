@@ -15,19 +15,9 @@ export class ItemComponent {
   private router = inject(Router)
   isClicked = false
 
-  // isActive = false
-  //
-  // ngOnInit() {
-  //   this.isActive = this.router.url.includes(this.link)
-  //   this.router.events.subscribe({
-  //     next: () => {
-  //       this.isActive = this.router.url.includes(this.link)
-  //     }
-  //   })
-  // }
 
   get isActiveRoute(): boolean {
-    return this.router.url.includes(this.link)
+    return this.router.url.endsWith(this.link)
   }
 
 }

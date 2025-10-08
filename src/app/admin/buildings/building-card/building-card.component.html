@@ -1,0 +1,35 @@
+<div class="building-card" [routerLink]="[building().buildingId,'floors']" >
+  <div class="building-content">
+    <div class="building-info">
+      <h3 class="building-name">{{ building().name }}</h3>
+      <div class="building-stats">
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="pi pi-building"></i>
+          </div>
+          <div class="stat-details">
+            <span class="stat-value">{{ building().totalFloors }}</span>
+            <span class="stat-label">{{ building().totalFloors === 1 ? 'Floor' : 'Floors' }}</span>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-icon available">
+            <i class="pi pi-car"></i>
+          </div>
+          <div class="stat-details">
+            <span class="stat-value">{{ building().availableSlots }}</span>
+            <span class="stat-label">Available Slots</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="building-summary">
+      <div class="total-slots">
+        <span class="total-number">{{ building().totalSlots }}</span>
+        <span class="total-label">Total Slots</span>
+      </div>
+    </div>
+  </div>
+</div>
