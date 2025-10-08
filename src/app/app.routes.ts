@@ -73,6 +73,10 @@ export const routes: Routes = [
       {
         path: 'buildings/:buildingId/floors/:floorId/slots',
         loadComponent: () => import('./admin/slots/slots.component').then(m => m.SlotsComponent),
+      },
+      {
+        path: 'hierarchy',
+        loadComponent: () => import('./admin/hierarchy/hierarchy.component').then(m => m.HierarchyComponent),
       }
     ]
   },

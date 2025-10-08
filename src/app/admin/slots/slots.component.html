@@ -1,7 +1,7 @@
 <p-toast />
 
 <div class="slots-container">
-  <!-- Header -->
+  <!-- header -->
   <div class="header-section">
     <div class="header">
       <h1>Slot Management</h1>
@@ -9,11 +9,10 @@
     </div>
   </div>
 
-  <!-- Overview Section -->
+  <!-- overview -->
   @if (overview && !isLoading) {
     <div class="overview-section">
       <div class="overview-grid">
-        <!-- Total Slots -->
         <div class="overview-card total">
           <div class="card-icon">
             <i class="pi pi-th-large"></i>
@@ -24,7 +23,6 @@
           </div>
         </div>
 
-        <!-- Available Slots -->
         <div class="overview-card available">
           <div class="card-icon">
             <i class="pi pi-check-circle"></i>
@@ -35,7 +33,6 @@
           </div>
         </div>
 
-        <!-- Occupied Slots -->
         <div class="overview-card occupied">
           <div class="card-icon">
             <i class="pi pi-ban"></i>
@@ -46,7 +43,6 @@
           </div>
         </div>
 
-        <!-- Occupancy Percentage -->
         <div class="overview-card percentage">
           <div class="card-icon">
             <i class="pi pi-chart-pie"></i>
@@ -58,9 +54,7 @@
         </div>
       </div>
 
-      <!-- Vehicle Type Stats -->
       <div class="vehicle-stats">
-        <!-- Two Wheeler Stats -->
         <div class="vehicle-stat-card two-wheeler">
           <div class="vehicle-header">
             <i class="pi pi-car"></i>
@@ -82,7 +76,6 @@
           </div>
         </div>
 
-        <!-- Four Wheeler Stats -->
         <div class="vehicle-stat-card four-wheeler">
           <div class="vehicle-header">
             <i class="pi pi-truck"></i>
@@ -107,7 +100,6 @@
     </div>
   }
 
-  <!-- Slot Map Section -->
   <div class="slot-map-section">
     <div class="section-header">
       <h3><i class="pi pi-map"></i> Slot Map</h3>

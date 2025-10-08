@@ -1,0 +1,178 @@
+<p-toast />
+
+<div class="hierarchy-container">
+  <!-- Header -->
+  <div class="header-section">
+    <div class="header">
+      <h1>Parking Hierarchy</h1>
+      <h2>View buildings, floors, and parking slots in hierarchical structure</h2>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  @if (isLoadingBuildings) {
+    <div class="loading-skeleton">
+      <p-skeleton height="120px" styleClass="mb-3"></p-skeleton>
+      <p-skeleton height="120px" styleClass="mb-3"></p-skeleton>
+      <p-skeleton height="120px"></p-skeleton>
+    </div>
+  }
+
+  <!-- Buildings Accordion -->
+  @if (!isLoadingBuildings) {
+    <p-accordion [multiple]="true" class="hierarchy-accordion">
+      @for (building of buildings; track building.buildingId) {
+        <p-accordionTab (selectedChange)="onBuildingExpand(building)">
+          <!-- Building Header -->
+          <ng-template pTemplate="header">
+            <div class="accordion-header building-header">
+              <div class="header-left">
+                <i class="pi pi-building"></i>
+                <span class="title">{{ building.name }}</span>
+              </div>
+              <div class="header-stats" (click)="$event.stopPropagation()">
+                <p-chip 
+                  [label]="building.totalFloors + ' Floors'"
+                  icon="pi pi-list"
+                  styleClass="chip-floors">
+                </p-chip>
+                <p-chip 
+                  [label]="building.availableSlots + '/' + building.totalSlots + ' Available'"
+                  icon="pi pi-car"
+                  [styleClass]="building.availableSlots > 0 ? 'chip-available' : 'chip-full'">
+                </p-chip>
+              </div>
+            </div>
+          </ng-template>
+
+          <!-- Building Content - Floors -->
+          <div class="building-content">
+            @if (building.isLoadingFloors) {
+              <div class="loading-skeleton">
+                <p-skeleton height="80px" styleClass="mb-2"></p-skeleton>
+                <p-skeleton height="80px" styleClass="mb-2"></p-skeleton>
+              </div>
+            }
+
+            @if (!building.isLoadingFloors && building.floors) {
+              <p-accordion [multiple]="true" class="floors-accordion">
+                @for (floor of building.floors; track floor.floorNumber) {
+                  <p-accordionTab (selectedChange)="onFloorExpand(building, floor)">
+                    <!-- Floor Header -->
+                    <ng-template pTemplate="header">
+                      <div class="accordion-header floor-header">
+                        <div class="header-left">
+                          <i class="pi pi-building"></i>
+                          <span class="title">Floor {{ floor.floorNumber }}</span>
+                          @if (floor.assignedOffice) {
+                            <p-tag 
+                              [value]="floor.assignedOffice"
+                              severity="info"
+                              icon="pi pi-briefcase">
+                            </p-tag>
+                          }
+                        </div>
+                        <div class="header-stats" (click)="$event.stopPropagation()">
+                          <p-chip 
+                            [label]="floor.availableSlots + '/' + floor.totalSlots"
+                            icon="pi pi-check-circle"
+                            styleClass="chip-available-small">
+                          </p-chip>
+                          <p-tag 
+                            [value]="getOccupancyPercentage(floor) + '% Occupied'"
+                            [severity]="getOccupancySeverity(getOccupancyPercentage(floor))">
+                          </p-tag>
+                        </div>
+                      </div>
+                    </ng-template>
+
+                    <!-- Floor Content - Slots -->
+                    <div class="floor-content">
+                      @if (floor.isLoadingSlots) {
+                        <div class="loading-skeleton">
+                          <div class="skeleton-grid">
+                            <p-skeleton height="100px"></p-skeleton>
+                            <p-skeleton height="100px"></p-skeleton>
+                            <p-skeleton height="100px"></p-skeleton>
+                            <p-skeleton height="100px"></p-skeleton>
+                          </div>
+                        </div>
+                      }
+
+                      @if (!floor.isLoadingSlots && floor.slots) {
+                        <div class="slots-grid">
+                          @for (slot of floor.slots; track slot.slotNumber) {
+                            <div class="slot-card" [ngClass]="getSlotStatusClass(slot)">
+                              <div class="slot-header">
+                                <span class="slot-number">Slot {{ slot.slotNumber }}</span>
+                                <i [class]="'pi ' + getSlotIcon(slot) + ' slot-type-icon'"></i>
+                              </div>
+                              
+                              <div class="slot-body">
+                                @if (slot.isAssigned && slot.parkingStatus) {
+                                  <div class="parking-info">
+                                    <div class="info-row">
+                                      <i class="pi pi-id-card"></i>
+                                      <span class="number-plate">{{ slot.parkingStatus.numberPlate }}</span>
+                                    </div>
+                                    <div class="info-row">
+                                      <i class="pi pi-user"></i>
+                                      <span class="user-name">{{ slot.parkingStatus.userName }}</span>
+                                    </div>
+                                    <div class="info-row">
+                                      <i class="pi pi-clock"></i>
+                                      <span class="parked-time">{{ slot.parkingStatus.parkedAt | date: 'short' }}</span>
+                                    </div>
+                                  </div>
+                                } @else {
+                                  <div class="available-badge">
+                                    <i class="pi pi-check-circle"></i>
+                                    <span>Available</span>
+                                  </div>
+                                }
+                              </div>
+
+                              <div class="slot-footer">
+                                <p-chip 
+                                  [label]="slot.slotType === 'TwoWheeler' ? '2-Wheeler' : '4-Wheeler'"
+                                  [styleClass]="slot.slotType === 'TwoWheeler' ? 'chip-two-wheeler' : 'chip-four-wheeler'"
+                                  [icon]="'pi ' + getSlotIcon(slot)">
+                                </p-chip>
+                              </div>
+                            </div>
+                          }
+                        </div>
+                      }
+
+                      @if (!floor.isLoadingSlots && floor.slots && floor.slots.length === 0) {
+                        <div class="empty-state">
+                          <i class="pi pi-inbox"></i>
+                          <p>No slots available on this floor</p>
+                        </div>
+                      }
+                    </div>
+                  </p-accordionTab>
+                }
+              </p-accordion>
+            }
+
+            @if (!building.isLoadingFloors && building.floors && building.floors.length === 0) {
+              <div class="empty-state">
+                <i class="pi pi-inbox"></i>
+                <p>No floors found in this building</p>
+              </div>
+            }
+          </div>
+        </p-accordionTab>
+      }
+    </p-accordion>
+  }
+
+  @if (!isLoadingBuildings && buildings.length === 0) {
+    <div class="empty-state main-empty">
+      <i class="pi pi-building"></i>
+      <h3>No Buildings Found</h3>
+      <p>There are no buildings in the system yet.</p>
+    </div>
+  }
+</div>
