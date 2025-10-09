@@ -3,7 +3,7 @@
             <div class="vehicle-info">
               <div class="numberplate">
                 <h3>{{ history().NumberPlate }}</h3>
-                <p-tag 
+                <p-tag
                   [value]="history().VechicleType"
                   [severity]="getVehicleTypeSeverity(history().VechicleType)"
                   [icon]="'pi ' + getVehicleTypeIcon(history().VechicleType)">
@@ -11,7 +11,7 @@
               </div>
             </div>
             <div class="duration-chip">
-              <p-chip 
+              <p-chip
                 [label]="calculateDuration(history().StartTime, history().EndTime)"
                 icon="pi pi-clock">
               </p-chip>
@@ -29,7 +29,7 @@
                   <span class="value">{{ history().BuildingName }}</span>
                 </div>
               </div>
-              
+
               <div class="info-item">
                 <i class="pi pi-list"></i>
                 <div class="info-details">
@@ -37,7 +37,7 @@
                   <span class="value">{{ history().FLoorNumber }}</span>
                 </div>
               </div>
-              
+
               <div class="info-item">
                 <i class="pi pi-map-marker"></i>
                 <div class="info-details">
@@ -52,7 +52,7 @@
                 <span class="time-label">Parked At</span>
                 <span class="time-value">{{ formatDateTime(history().StartTime) }}</span>
               </div>
-              
+
               <div class="time-item">
                 <span class="time-label">Left At</span>
                 <span class="time-value">{{ formatDateTime(history().EndTime) }}</span>

@@ -44,7 +44,7 @@
         </div>
 
         <div class="overview-card percentage" >
-          <div class="card-bg" [style]="{ 'width': overview.occupancyPercentage + '%' }">
+          <div class="card-bg" [style]="{ 'width': 50 + '%' }">
           </div>
           <div class="card-icon">
             <i class="pi pi-chart-pie"></i>
@@ -128,7 +128,7 @@
     @if (!isLoading && slots.length > 0) {
       <div class="slot-map">
         @for (slot of slots; track slot.slotNumber) {
-          <div 
+          <div
             class="slot-card"
             [class.occupied]="slot.isAssigned && slot.parkingStatus"
             [class.available]="!slot.isAssigned || !slot.parkingStatus"
@@ -136,9 +136,9 @@
             [class.four-wheeler]="slot.slotType === 'FourWheeler'"
             [pTooltip]="getSlotTooltip(slot)"
             tooltipPosition="top">
-            
+
             <div class="slot-number">{{ slot.slotNumber }}</div>
-            
+
             <div class="slot-icon">
               <ng-icon [name]="getSlotIcon(slot)" size="32"></ng-icon>
             </div>

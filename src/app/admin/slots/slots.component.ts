@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
@@ -37,17 +37,18 @@ export class SlotsComponent implements OnInit {
 
   buildingId: string = '';
   floorId: string = '';
-  
+
   slots: SlotResponse[] = [];
+
   overview: SlotOverview | null = null;
+
   isLoading: boolean = true;
 
-
-  ngOnInit() {
-    const subscription = this.activeRoute.params.subscribe(params => {
+  ngOnInit(): void {
+    const subscription = this.activeRoute.params.subscribe((params: Params) => {
       this.buildingId = params['buildingId'];
       this.floorId = params['floorId'];
-      
+
       this.loadSlots();
     });
 
@@ -57,7 +58,7 @@ export class SlotsComponent implements OnInit {
   loadSlots(): void {
     this.isLoading = true;
     this.slotService.getAllSlots(this.buildingId, this.floorId).subscribe({
-      next: (slots) => {
+      next: (slots: SlotResponse[]) => {
         this.slots = slots;
         this.calculateOverview();
         this.isLoading = false;
@@ -66,17 +67,15 @@ export class SlotsComponent implements OnInit {
         this.isLoading = false;
       }
     })
-
-
   }
 
   calculateOverview(): void {
-    const totalSlots = this.slots.length;
+    const totalSlots = this.slots?.length;
     const occupiedSlots = this.slots.filter(s => s.isAssigned && s.parkingStatus).length;
     const availableSlots = totalSlots - occupiedSlots;
 
-    const twoWheelerSlots = this.slots.filter(s => s.slotType === 'TwoWheeler');
-    const fourWheelerSlots = this.slots.filter(s => s.slotType === 'FourWheeler');
+    const twoWheelerSlots = this.slots.filter(slot => slot.slotType === 'TwoWheeler');
+    const fourWheelerSlots = this.slots.filter(slot => slot.slotType === 'FourWheeler');
 
     this.overview = {
       totalSlots,
@@ -102,7 +101,8 @@ export class SlotsComponent implements OnInit {
     }
 
     const parkingDuration = this.getParkingDuration(slot.parkingStatus.parkedAt);
-    
+
+    //TODO: break line
     return `Vehicle: ${slot.parkingStatus.numberPlate}\nOwner: ${slot.parkingStatus.userName}\nEmail: ${slot.parkingStatus.userEmail}\nParked: ${parkingDuration}`;
   }
 
@@ -120,11 +120,5 @@ export class SlotsComponent implements OnInit {
 
   getSlotIcon(slot: SlotResponse): string {
     return slot.slotType === 'TwoWheeler' ? 'matTwoWheeler' : 'matDirectionsCar';
-  }
-
-  getOccupancySeverity(percentage: number): 'success' | 'warning' | 'danger' {
-    if (percentage < 50) return 'success';
-    if (percentage < 80) return 'warning';
-    return 'danger';
   }
 }

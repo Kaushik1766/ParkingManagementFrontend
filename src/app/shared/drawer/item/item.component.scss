@@ -8,14 +8,15 @@
   border-radius: var(--p-border-radius-lg);
   padding: 0 1rem;
   cursor: pointer;
-  background-color: var(--p-surface-100);
+  background-color: var(--p-secondary-200);
   margin-bottom: 1rem;
 
   &:hover {
-    background-color: var(--p-surface-200);
+    background-color: var(--p-secondary-300);
   }
+
   &.active {
-    background-color: var(--p-primary-100);
+    background-color: var(--p-primary-200);
     border-left: 4px solid var(--p-primary-600);
     padding-left: calc(1rem - 4px);
   }

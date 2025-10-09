@@ -45,7 +45,7 @@ export class FloorsComponent implements OnInit {
   buildingId = '';
   floors: FloorResponse[] = [];
   isAddingFloor = false;
-  
+
   // Office Assignment Dialog
   showAssignOfficeDialog = false;
   selectedFloor: FloorResponse | null = null;
@@ -96,7 +96,7 @@ export class FloorsComponent implements OnInit {
     if (this.floorFormGroup.valid) {
       this.isLoading = true;
       this.floorService.addFloor(this.buildingId, this.floorFormGroup.value.floorNumber!).subscribe({
-        next:()=>{
+        next: () => {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
@@ -106,7 +106,7 @@ export class FloorsComponent implements OnInit {
           this.isLoading = false;
           this.loadFloors();
         },
-        error: (err:HttpErrorResponse)=>{
+        error: (err: HttpErrorResponse) => {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',

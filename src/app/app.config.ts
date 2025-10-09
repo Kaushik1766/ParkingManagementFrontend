@@ -18,6 +18,7 @@ export const appConfig: ApplicationConfig = {
         preset: customPreset,
         options: {
           darkModeSelector: '.dark'
+          // matDarkMode: true
         }
       }
     }),

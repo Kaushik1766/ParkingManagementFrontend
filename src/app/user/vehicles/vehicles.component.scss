@@ -9,7 +9,7 @@
   h1 {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--p-surface-800);
+    color: var(--p-secondary-800);
     margin: 0 0 8px 0;
   }
 
@@ -47,7 +47,7 @@
 .empty-state {
   grid-column: 1 / -1;
   text-align: center;
-  color: var(--p-surface-500);
+  color: var(--p-secondary-500);
   padding: 2rem;
 
   p {
@@ -56,7 +56,7 @@
 
     &:first-child {
       font-weight: 600;
-      color: var(--p-surface-700);
+      color: var(--p-secondary-700);
     }
   }
 }
@@ -64,8 +64,8 @@
 .add-vehicle {
   width: 90%;
   margin: 3rem auto;
-  background: var(--p-surface-0);
-  border: 1px solid var(--p-surface-200);
+  background: var(--p-secondary-0);
+  border: 1px solid var(--p-secondary-200);
   border-radius: var(--p-border-radius-lg);
   padding: 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -73,7 +73,7 @@
 
   h3 {
     margin: 0 0 1.5rem 0;
-    color: var(--p-surface-800);
+    color: var(--p-secondary-800);
     font-size: 1.375rem;
     font-weight: 600;
     text-align: left;

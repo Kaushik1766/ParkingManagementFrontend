@@ -15,16 +15,16 @@ export interface SlotOverview {
   };
 }
 
-export interface SlotResponse{
-    buildingId: string;
-    floorNumber: number;
-    slotNumber: number;
-    slotType: "TwoWheeler" | "FourWheeler";
-    isAssigned: boolean;
-    parkingStatus?: {
-        numberPlate: string;
-        parkedAt: string;
-        userName: string;
-        userEmail: string;
-    }
+export interface SlotResponse {
+  buildingId: string;
+  floorNumber: number;
+  slotNumber: number;
+  slotType: "TwoWheeler" | "FourWheeler";
+  isAssigned: boolean;
+  parkingStatus?: {
+    numberPlate: string;
+    parkedAt: string;
+    userName: string;
+    userEmail: string;
+  }
 }

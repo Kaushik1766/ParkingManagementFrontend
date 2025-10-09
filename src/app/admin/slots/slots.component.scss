@@ -25,7 +25,7 @@
     h1 {
       font-size: 2rem;
       font-weight: 700;
-      color: var(--p-surface-800);
+      color: var(--p-secondary-800);
       line-height: 0;
 
       @media (max-width: 768px) {
@@ -57,7 +57,7 @@
     }
 
     .overview-card {
-      background: var(--p-surface-0);
+      background: var(--p-secondary-0);
       border-radius: var(--p-border-radius-lg);
       padding: 1.5rem;
       display: flex;
@@ -67,14 +67,16 @@
       border: 2px solid;
       position: relative;
 
-      .card-bg{
+      .card-bg {
         position: absolute;
         top: 0;
         left: 0;
         height: 100%;
         z-index: 0;
-        background-color: var(--p-primary-600);
-        opacity: 0.2;
+        background-color: var(--p-violet-600);
+        border-top-left-radius: var(--p-border-radius-lg);
+        border-bottom-left-radius: var(--p-border-radius-lg);
+        opacity: 0.4;
         // .card-bg-overlay{
         //   background-color: red;
         //   position: absolute;
@@ -89,12 +91,12 @@
 
       &.total {
         border-color: var(--p-primary-200);
-        
+
         .card-icon {
           background: var(--p-primary-100);
           color: var(--p-primary-600);
         }
-        
+
         .card-value {
           color: var(--p-primary-700);
         }
@@ -102,12 +104,12 @@
 
       &.available {
         border-color: var(--p-green-200);
-        
+
         .card-icon {
           background: var(--p-green-100);
           color: var(--p-green-600);
         }
-        
+
         .card-value {
           color: var(--p-green-700);
         }
@@ -115,27 +117,27 @@
 
       &.occupied {
         border-color: var(--p-red-200);
-        
+
         .card-icon {
           background: var(--p-red-100);
           color: var(--p-red-600);
         }
-        
+
         .card-value {
           color: var(--p-red-700);
         }
       }
 
       &.percentage {
-        border-color: var(--p-purple-200);
-        
+        border-color: var(--p-violet-200);
+
         .card-icon {
-          background: var(--p-purple-100);
-          color: var(--p-purple-600);
+          background: var(--p-violet-100);
+          color: var(--p-violet-600);
         }
-        
+
         .card-value {
-          color: var(--p-purple-700);
+          color: var(--p-violet-700);
         }
       }
 
@@ -165,7 +167,7 @@
 
         .card-label {
           font-size: 0.875rem;
-          color: var(--p-surface-600);
+          color: var(--p-secondary-600);
           font-weight: 500;
         }
 
@@ -186,7 +188,7 @@
     }
 
     .vehicle-stat-card {
-      background: var(--p-surface-0);
+      background: var(--p-secondary-0);
       border-radius: var(--p-border-radius-lg);
       padding: 2rem;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -194,10 +196,10 @@
 
       &.two-wheeler {
         border-color: var(--p-blue-200);
-        
+
         .vehicle-header {
           color: var(--p-blue-700);
-          
+
           i {
             background: var(--p-blue-100);
             color: var(--p-blue-600);
@@ -207,10 +209,10 @@
 
       &.four-wheeler {
         border-color: var(--p-orange-200);
-        
+
         .vehicle-header {
           color: var(--p-orange-700);
-          
+
           i {
             background: var(--p-orange-100);
             color: var(--p-orange-600);
@@ -252,12 +254,12 @@
           align-items: center;
           text-align: center;
           padding: 1rem;
-          background: var(--p-surface-50);
+          background: var(--p-secondary-50);
           border-radius: var(--p-border-radius-md);
 
           .stat-label {
             font-size: 0.875rem;
-            color: var(--p-surface-600);
+            color: var(--p-secondary-600);
             margin-bottom: 0.5rem;
             font-weight: 500;
           }
@@ -265,7 +267,7 @@
           .stat-value {
             font-size: 1.75rem;
             font-weight: 700;
-            color: var(--p-surface-800);
+            color: var(--p-secondary-800);
 
             &.available {
               color: var(--p-green-600);
@@ -294,7 +296,7 @@
     h3 {
       font-size: 1.5rem;
       font-weight: 600;
-      color: var(--p-surface-800);
+      color: var(--p-secondary-800);
       margin: 0;
       display: flex;
       align-items: center;
@@ -315,7 +317,7 @@
         align-items: center;
         gap: 0.5rem;
         font-size: 0.875rem;
-        color: var(--p-surface-700);
+        color: var(--p-secondary-700);
 
         .legend-box {
           width: 1.25rem;
@@ -336,7 +338,7 @@
 
         .legend-icon {
           font-size: 1rem;
-          color: var(--p-surface-600);
+          color: var(--p-secondary-600);
         }
       }
     }
@@ -357,7 +359,7 @@
     }
 
     .slot-card {
-      background: var(--p-surface-0);
+      background: var(--p-secondary-0);
       border-radius: var(--p-border-radius-lg);
       padding: 1.5rem;
       display: flex;
@@ -412,7 +414,7 @@
       .slot-number {
         font-size: 1.125rem;
         font-weight: 700;
-        color: var(--p-surface-800);
+        color: var(--p-secondary-800);
         text-align: center;
       }
 
@@ -423,7 +425,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: var(--p-surface-100);
+        background: var(--p-secondary-100);
 
         ng-icon {
           font-size: 1.5rem;
@@ -437,14 +439,14 @@
         .vehicle-plate {
           font-size: 0.875rem;
           font-weight: 600;
-          color: var(--p-surface-800);
+          color: var(--p-secondary-800);
           margin-bottom: 0.25rem;
           word-break: break-all;
         }
 
         .parking-time {
           font-size: 0.75rem;
-          color: var(--p-surface-600);
+          color: var(--p-secondary-600);
         }
       }
 
@@ -461,10 +463,10 @@
 .empty-state {
   text-align: center;
   padding: 4rem 2rem;
-  color: var(--p-surface-500);
+  color: var(--p-secondary-500);
 
   h3 {
-    color: var(--p-surface-700);
+    color: var(--p-secondary-700);
     margin: 0 0 0.5rem 0;
     font-size: 1.25rem;
     font-weight: 600;

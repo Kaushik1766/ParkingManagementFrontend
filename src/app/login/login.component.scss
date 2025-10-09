@@ -59,12 +59,12 @@
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  background-color: var(--p-background);
   padding: 0 10%;
 
   @include md {
     width: 50%;
     justify-content: center;
+    background-color: var(--p-background);
   }
 }
 

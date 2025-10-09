@@ -13,12 +13,12 @@ import { Divider } from "primeng/divider";
 export class HistoryCardComponent {
   history = input.required<ParkingHistory>();
 
-   getVehicleTypeIcon(vehicleType: string): string {
+  getVehicleTypeIcon(vehicleType: string): string {
     return vehicleType == "TwoWheeler" ? 'pi-circle' : 'pi-stop';
   }
 
-  getVehicleTypeSeverity(vehicleType: string): 'info' | 'success' {
-    return vehicleType == "TwoWheeler" ? 'info' : 'success';
+  getVehicleTypeSeverity(vehicleType: string): 'info' | 'help' {
+    return vehicleType == "TwoWheeler" ? 'info' : 'help';
   }
 
   calculateDuration(startTime: string, endTime: string): string {
@@ -34,7 +34,7 @@ export class HistoryCardComponent {
     }
     return `${minutes}m`;
   }
-  
+
   formatDateTime(dateTimeString: string): string {
     const date = new Date(dateTimeString);
     return date.toLocaleString('en-IN', {

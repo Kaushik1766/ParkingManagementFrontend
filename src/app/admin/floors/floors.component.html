@@ -15,9 +15,9 @@
     <form [formGroup]="floorFormGroup" (ngSubmit)="onAddFloor()" class="add-floor-form">
       <div class="form-row">
         <p-floatlabel variant="on">
-          <p-inputnumber 
+          <p-inputnumber
             inputId="floorNumber"
-            formControlName="floorNumber" 
+            formControlName="floorNumber"
             fluid
             [class.ng-invalid]="floorNumberError" />
           <label for="floorNumber">Floor Number</label>
@@ -55,7 +55,7 @@
                 <i class="pi pi-building"></i>
                 <h3>Floor {{ floor.floorNumber }}</h3>
               </div>
-              <p-tag 
+              <p-tag
                 [value]="getOccupancyPercentage(floor) + '% Assigned'"
                 [severity]="getOccupancySeverity(getOccupancyPercentage(floor))">
               </p-tag>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="stat-details">
                   <span class="stat-value">{{ floor.totalSlots - floor.availableSlots }}</span>
-                  <span class="stat-label">Assigned Slots</span>
+                  <span class="stat-label">Occupied Slots</span>
                 </div>
               </div>
             </div>
@@ -105,7 +105,7 @@
                       <span class="office-name">{{ floor.assignedOffice }}</span>
                     </div>
                   </div>
-                  <p-button 
+                  <p-button
                     icon="pi pi-eye"
                     [outlined]="true"
                     size="small"
@@ -120,7 +120,7 @@
                     <i class="pi pi-info-circle"></i>
                     <span>No office assigned to this floor</span>
                   </div>
-                  <p-button 
+                  <p-button
                     icon="pi pi-plus"
                     size="small"
                     label="Assign Office"
@@ -137,14 +137,14 @@
 </div>
 
 <!-- assign office -->
-<p-dialog 
+<p-dialog
   [(visible)]="showAssignOfficeDialog"
   [modal]="true"
   [closable]="false"
   [draggable]="false"
   styleClass="assign-office-dialog"
   header="Assign Office">
-  
+
   <div class="dialog-content">
     <p class="dialog-description">
       @if (selectedFloor) {
@@ -154,7 +154,7 @@
 
     <form [formGroup]="assignOfficeFormGroup" class="office-form">
       <p-floatlabel variant="on">
-        <input 
+        <input
           pInputText
           id="officeName"
           formControlName="officeName"
@@ -171,14 +171,14 @@
 
   <ng-template pTemplate="footer">
     <div class="dialog-footer">
-      <p-button 
+      <p-button
         label="Cancel"
         severity="secondary"
         [outlined]="true"
         (onClick)="onCancelAssignOffice()"
         [disabled]="isAssigningOffice">
       </p-button>
-      <p-button 
+      <p-button
         label="Assign Office"
         icon="pi pi-check"
         (onClick)="onConfirmAssignOffice()"
