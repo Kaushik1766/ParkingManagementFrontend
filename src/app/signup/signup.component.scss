@@ -87,8 +87,20 @@
   form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    margin-top: 3rem;
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      position: relative;
+      margin-top: 1.5rem;
+
+      p-message {
+        margin: 0;
+        align-self: flex-start;
+        height: 1rem;
+      }
+    }
   }
 
   p-button {
@@ -102,14 +114,5 @@
       font-size: 0.9rem;
       text-align: center;
     }
-  }
-}
-
-.invalid-error {
-  position: absolute;
-
-  p {
-    color: red;
-    line-height: 0;
   }
 }

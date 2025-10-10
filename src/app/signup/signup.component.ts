@@ -14,6 +14,7 @@ import { OfficeService } from '../services/office.service';
 import { AuthService } from '../services/auth.service';
 import { SignupRequest } from '../models/signup.api';
 import { HttpErrorResponse } from '@angular/common/http';
+import { signupErrors } from '../../config/signup';
 
 @Component({
   selector: 'app-signup',
@@ -38,20 +39,20 @@ export class SignupComponent implements OnInit {
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9]{4,10}$')
       ],
-      updateOn: 'blur'
+      updateOn: 'change'
     }),
     email: new FormControl('', {
       validators: [
         Validators.required,
         Validators.email
       ],
-      updateOn: 'blur'
+      updateOn: 'change'
     }),
     password: new FormControl('', {
       validators: [
         Validators.required,
       ],
-      updateOn: 'blur'
+      updateOn: 'change'
     }),
     office: new FormControl('', {
       validators: [
@@ -114,5 +115,30 @@ export class SignupComponent implements OnInit {
 
   get isPasswordValid(): boolean {
     return this.signupForm.controls.password.invalid && this.signupForm.controls.password.dirty
+  }
+
+  get getInvalidEmailMessage() {
+    if (this.signupForm.controls.email.invalid && this.signupForm.controls.email.dirty) {
+      return signupErrors.email
+    }
+    return ''
+  }
+  get getInvalidUsernameMessage() {
+    if (this.signupForm.controls.userName.invalid && this.signupForm.controls.userName.dirty) {
+      return signupErrors.userName
+    }
+    return ''
+  }
+  get getInvalidPasswordMessage() {
+    if (this.signupForm.controls.password.invalid && this.signupForm.controls.password.dirty) {
+      return signupErrors.password
+    }
+    return ''
+  }
+  get getInvalidOfficeMessage() {
+    if (this.signupForm.controls.office.invalid && this.signupForm.controls.office.dirty) {
+      return signupErrors.office
+    }
+    return ''
   }
 }
