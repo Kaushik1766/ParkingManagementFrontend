@@ -12,6 +12,8 @@
             </div>
             <div class="duration-chip">
               <p-chip
+                pTooltip="Duration of Parking"
+                tooltipPosition="top"
                 [label]="calculateDuration(history().StartTime, history().EndTime)"
                 icon="pi pi-clock">
               </p-chip>

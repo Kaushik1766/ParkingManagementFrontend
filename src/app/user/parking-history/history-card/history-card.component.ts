@@ -3,10 +3,16 @@ import { ParkingHistory, VehicleTypeEnum } from '../../../models/parking-history
 import { TagModule } from 'primeng/tag';
 import { ChipModule } from 'primeng/chip';
 import { Divider } from "primeng/divider";
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-history-card',
-  imports: [TagModule, ChipModule, Divider],
+  imports: [
+    TagModule,
+    ChipModule,
+    Divider,
+    TooltipModule
+  ],
   templateUrl: './history-card.component.html',
   styleUrl: './history-card.component.scss'
 })
