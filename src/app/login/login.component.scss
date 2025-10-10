@@ -13,20 +13,26 @@
 
 
 .login-img {
-  width: 50%;
+  width: 100%;
+  height: 100%;
   background-color: gray;
-  display: none;
-  position: relative;
+  display: block;
   overflow: hidden;
-
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
 
   @include md {
     display: block;
+    position: static;
+    width: 50%;
   }
 
   img {
     height: 100%;
     width: 100%;
+    // filter: blur(5px);
   }
 
   .overlay {
@@ -59,7 +65,9 @@
   flex-direction: column;
   justify-content: start;
   align-items: center;
+  justify-content: center;
   padding: 0 10%;
+  // backdrop-filter: blur(5px);
 
   @include md {
     width: 50%;
@@ -70,8 +78,13 @@
 
 
 .form-content {
-  height: 60%;
+  // height: 60%;
   width: 100%;
+  // background-color: rgba(24, 24, 27, 0.75);
+  background-color: var(--p-blur-background-50);
+  backdrop-filter: blur(5px);
+  padding: 16px;
+  border-radius: var(--p-border-radius-lg);
 
   h2 {
     color: var(--p-primary-600);
@@ -80,7 +93,7 @@
   }
 
   p {
-    color: var(--p-surface-400);
+    color: var(--p-secondary-700);
     margin-bottom: 1rem;
     font-size: 1rem;
   }

@@ -55,6 +55,9 @@ export const customPreset = definePreset(Aura, {
           hoverColor: '{purple.900}',
           activeColor: '{purple.800}',
         },
+        blurBackground: {
+          50: 'rgba(248, 250, 252,0.75)'
+        },
         highlight: {
           background: '{purple.950}',
           focusBackground: '{purple.700}',
@@ -137,6 +140,9 @@ export const customPreset = definePreset(Aura, {
           100: '{zinc.700}',
           300: '{zinc.600}',
           400: '{zinc.500}',
+        },
+        blurBackground: {
+          50: 'rgba(24, 24, 27,0.75)'
         },
         secondary: {
           50: '{zinc.950}',
