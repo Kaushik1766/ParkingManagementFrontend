@@ -11,12 +11,17 @@ import { UserDrawerComponent } from './user/drawer/user-drawer.component';
 import { AdminDrawerComponent } from './admin/drawer/admin-drawer.component';
 import { RetryLoaderComponent } from './loaderTest/retry-loader/retry-loader.component';
 import { ParkingHistoryComponent } from './user/parking-history/parking-history.component';
+import { RatingComponent } from './rating/rating.component';
 
 export const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
+  },
+  {
+    path: 'ratings',
+    component: RatingComponent
   },
   {
     path: 'login',
