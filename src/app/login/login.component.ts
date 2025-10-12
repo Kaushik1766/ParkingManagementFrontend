@@ -14,7 +14,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
-  imports: [Toast, Button, RouterLink, FormsModule, InputTextModule, FloatLabelModule, Password],
+  imports: [
+    RouterLink,
+    FormsModule,
+
+    Toast,
+    Button,
+    InputTextModule,
+    FloatLabelModule,
+    Password
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   providers: [MessageService]

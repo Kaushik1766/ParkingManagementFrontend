@@ -20,11 +20,13 @@ import { map } from 'rxjs';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+
     CardModule,
     ButtonModule,
     InputTextModule,
     FloatLabelModule,
     ToastModule,
+
     LoaderComponent,
     BuildingCardComponent
   ],

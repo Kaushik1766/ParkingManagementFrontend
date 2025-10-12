@@ -9,6 +9,7 @@ import { SlotResponse } from '../../../models/slot';
   selector: 'app-slot-card',
   imports: [
     CommonModule,
+
     TooltipModule,
     NgIconComponent
   ],

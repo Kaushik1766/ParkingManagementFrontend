@@ -7,7 +7,14 @@ import { ItemComponent } from '../../shared/drawer/item/item.component';
 
 @Component({
   selector: 'app-admin-drawer',
-  imports: [RouterOutlet, ButtonModule, DrawerLayoutComponent, ItemComponent],
+  imports: [
+    RouterOutlet,
+
+    ButtonModule,
+
+    DrawerLayoutComponent,
+    ItemComponent
+  ],
   templateUrl: './admin-drawer.component.html',
   styleUrl: './admin-drawer.component.scss'
 })

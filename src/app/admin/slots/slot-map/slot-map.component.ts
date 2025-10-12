@@ -9,7 +9,9 @@ import { SlotCardComponent } from '../slot-card/slot-card.component';
   selector: 'app-slot-map',
   imports: [
     CommonModule,
+
     NgIconComponent,
+
     SlotCardComponent
   ],
   providers: [provideIcons({ matTwoWheeler, matDirectionsCar })],

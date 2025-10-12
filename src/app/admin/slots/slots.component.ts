@@ -12,7 +12,9 @@ import { SlotMapComponent } from './slot-map/slot-map.component';
   selector: 'app-slots',
   imports: [
     CommonModule,
+
     ToastModule,
+
     SlotOverviewComponent,
     SlotMapComponent
   ],

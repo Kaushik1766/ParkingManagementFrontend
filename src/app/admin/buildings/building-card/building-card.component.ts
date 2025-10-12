@@ -4,7 +4,9 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-building-card',
-  imports: [RouterLink],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './building-card.component.html',
   styleUrl: './building-card.component.scss'
 })

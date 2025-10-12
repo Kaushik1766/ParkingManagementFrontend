@@ -21,8 +21,8 @@ import { FloorCardComponent } from './floor-card/floor-card.component';
   selector: 'app-floors',
   imports: [
     CommonModule,
-    LoaderComponent,
     ReactiveFormsModule,
+
     FloatLabel,
     ButtonModule,
     InputNumberModule,
@@ -31,6 +31,8 @@ import { FloorCardComponent } from './floor-card/floor-card.component';
     ToastModule,
     DialogModule,
     InputTextModule,
+
+    LoaderComponent,
     FloorCardComponent
   ],
   templateUrl: './floors.component.html',

@@ -18,7 +18,18 @@ import { signupErrors } from '../../config/signup';
 
 @Component({
   selector: 'app-signup',
-  imports: [ToastModule, Button, RouterLink, InputTextModule, FloatLabelModule, Password, ReactiveFormsModule, Message, SelectModule],
+  imports: [
+    RouterLink,
+    ReactiveFormsModule,
+
+    ToastModule,
+    Button,
+    InputTextModule,
+    FloatLabelModule,
+    Password,
+    Message,
+    SelectModule
+  ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
   providers: [MessageService]

@@ -16,7 +16,19 @@ import { Message } from "primeng/message";
 
 @Component({
   selector: 'app-vehicles',
-  imports: [UserVehicleComponent, ToastModule, LoaderComponent, ReactiveFormsModule, ButtonModule, FloatLabel, SelectModule, InputTextModule, Message],
+  imports: [
+    ReactiveFormsModule,
+
+    ToastModule,
+    ButtonModule,
+    FloatLabel,
+    SelectModule,
+    InputTextModule,
+    Message,
+
+    UserVehicleComponent,
+    LoaderComponent
+  ],
   templateUrl: './vehicles.component.html',
   styleUrl: './vehicles.component.scss',
   providers: [MessageService]

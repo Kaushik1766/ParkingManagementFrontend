@@ -3,7 +3,9 @@ import { UserDrawerComponent } from '../drawer/user-drawer.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [UserDrawerComponent],
+  imports: [
+    UserDrawerComponent
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

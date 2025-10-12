@@ -8,6 +8,7 @@ import { FloorResponse } from '../../../models/floor';
   selector: 'app-floor-card',
   imports: [
     CommonModule,
+
     ButtonModule,
     TagModule
   ],

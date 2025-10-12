@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DrawerLayoutComponent } from './drawer-layout.component';
+import { RouterLink } from '@angular/router';
 
 describe('DrawerLayoutComponent', () => {
   let component: DrawerLayoutComponent;
@@ -8,7 +9,11 @@ describe('DrawerLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DrawerLayoutComponent]
+      imports: [
+        RouterLink,
+        
+        DrawerLayoutComponent
+      ]
     })
     .compileComponents();
 

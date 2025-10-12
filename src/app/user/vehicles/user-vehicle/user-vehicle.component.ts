@@ -11,7 +11,12 @@ import { VehicleResponse, VehicleType } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-user-vehicle',
-  imports: [NgIcon, ButtonModule, TitleCasePipe],
+  imports: [
+    TitleCasePipe,
+
+    NgIcon,
+    ButtonModule
+  ],
   templateUrl: './user-vehicle.component.html',
   styleUrl: './user-vehicle.component.scss',
   viewProviders: [provideIcons({

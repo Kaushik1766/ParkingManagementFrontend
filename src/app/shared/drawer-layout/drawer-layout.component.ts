@@ -2,10 +2,15 @@ import { Component, inject, model } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 import { AuthService } from '../../services/auth.service';
-
+import { RouterModule, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-drawer-layout',
-  imports: [ButtonModule, DrawerModule],
+  imports: [
+    RouterLink,
+
+    ButtonModule, 
+    DrawerModule 
+  ],
   templateUrl: './drawer-layout.component.html',
   styleUrl: './drawer-layout.component.scss'
 })

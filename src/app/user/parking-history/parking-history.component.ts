@@ -17,7 +17,16 @@ import { FloatLabel } from "primeng/floatlabel";
 
 @Component({
   selector: 'app-parking-history',
-  imports: [HistoryCardComponent, Toast, LoaderComponent, InputTextModule, FormsModule, FloatLabel],
+  imports: [
+    FormsModule,
+
+    Toast,
+    InputTextModule,
+    FloatLabel,
+
+    HistoryCardComponent,
+    LoaderComponent
+  ],
   templateUrl: './parking-history.component.html',
   styleUrl: './parking-history.component.scss',
   providers:[MessageService]

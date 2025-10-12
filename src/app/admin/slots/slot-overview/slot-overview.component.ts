@@ -8,6 +8,7 @@ import { SlotOverview } from '../../../models/slot';
   selector: 'app-slot-overview',
   imports: [
     CommonModule,
+
     NgIconComponent
   ],
   providers: [provideIcons({ matTwoWheeler, matDirectionsCar })],
