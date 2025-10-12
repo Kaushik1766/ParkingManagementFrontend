@@ -30,6 +30,12 @@
       @for (history of filteredHistory; track history.TicketId) {
         <app-history-card [history]="history" />
       }
+      @empty {
+        <div class="empty-state">
+          <h3>No Parking History</h3>
+          <p>No parking history with numberplate exists, please check and try again.</p>
+        </div>
+      }
     </div>
   }
 </div>
