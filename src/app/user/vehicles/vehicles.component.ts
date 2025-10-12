@@ -15,6 +15,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Message } from "primeng/message";
 import { COMMON_MESSAGES } from '../../../config/common';
 import { VEHICLES_MESSAGES } from '../../../config/vehicles';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-vehicles',
@@ -29,15 +31,17 @@ import { VEHICLES_MESSAGES } from '../../../config/vehicles';
     Message,
 
     UserVehicleComponent,
-    LoaderComponent
+    LoaderComponent,
+    ConfirmDialogModule
   ],
   templateUrl: './vehicles.component.html',
   styleUrl: './vehicles.component.scss',
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class VehiclesComponent implements OnInit {
   private vehicleService = inject(VehicleService)
   private messageService = inject(MessageService)
+  private confirmationService = inject(ConfirmationService)
 
   vehicles: VehicleResponse[] = []
   isLoading = signal(false)
@@ -101,26 +105,39 @@ export class VehiclesComponent implements OnInit {
   }
 
   onVehicleDelete(numberplate: string): void {
-    this.isLoading.set(true)
-    this.vehicleService.deleteVehicle(numberplate).subscribe({
-      next: () => {
-        this.messageService.add({
-          life: 10000,
-          severity: 'success',
-          summary: COMMON_MESSAGES.TOAST.SUCCESS_SUMMARY,
-          detail: 'Vehicle deleted successfully'
-        })
-        this.loadVehicles();
-        this.isLoading.set(false);
+    this.confirmationService.confirm({
+      message: VEHICLES_MESSAGES.CONFIRM.DELETE_MESSAGE,
+      header: VEHICLES_MESSAGES.CONFIRM.DELETE_TITLE,
+      icon: 'pi pi-exclamation-triangle',
+      acceptButtonProps:{
+        label: 'Delete',
+        severity: 'danger'
       },
-      error: (err: HttpErrorResponse) => {
-  this.isLoading.set(false);
-  this.messageService.add({ severity: 'error', summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY, detail: err.error.message, life: 10000 });
+      rejectButtonProps:{
+        label: 'Cancel',
+        severity: 'secondary'
+      },
+      accept: () => {
+        this.isLoading.set(true)
+        this.vehicleService.deleteVehicle(numberplate).subscribe({
+          next: () => {
+            this.messageService.add({
+              life: 10000,
+              severity: 'success',
+              summary: COMMON_MESSAGES.TOAST.SUCCESS_SUMMARY,
+              detail: 'Vehicle deleted successfully'
+            })
+            this.loadVehicles();
+            this.isLoading.set(false);
+          },
+          error: (err: HttpErrorResponse) => {
+            this.isLoading.set(false);
+            this.messageService.add({ severity: 'error', summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY, detail: err.error.message, life: 10000 });
+          }
+        })
       }
-    })
-  }
-
-  onVehiclePark(numberplate: string) {
+    });
+  }  onVehiclePark(numberplate: string) {
     this.isLoading.set(true);
     this.vehicleService.parkVehicle(numberplate).subscribe({
       next: val => {

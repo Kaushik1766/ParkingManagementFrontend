@@ -6,5 +6,9 @@ export const VEHICLES_MESSAGES = {
   },
   ERRORS: {
     NUMBER_PLATE_INVALID: 'Please enter a valid number plate',
+  },
+  CONFIRM: {
+    DELETE_TITLE: 'Confirm Delete',
+    DELETE_MESSAGE: 'Are you sure you want to delete this vehicle?',
   }
 };
