@@ -1,0 +1,89 @@
+<div class="overview-section">
+  <div class="overview-grid">
+    <div class="overview-card total">
+      <div class="card-icon">
+        <i class="pi pi-th-large"></i>
+      </div>
+      <div class="card-content">
+        <div class="card-value">{{ overview().totalSlots }}</div>
+        <div class="card-label">Total Slots</div>
+      </div>
+    </div>
+
+    <div class="overview-card available">
+      <div class="card-icon">
+        <i class="pi pi-check-circle"></i>
+      </div>
+      <div class="card-content">
+        <div class="card-value">{{ overview().availableSlots }}</div>
+        <div class="card-label">Available</div>
+      </div>
+    </div>
+
+    <div class="overview-card occupied">
+      <div class="card-icon">
+        <i class="pi pi-ban"></i>
+      </div>
+      <div class="card-content">
+        <div class="card-value">{{ overview().occupiedSlots }}</div>
+        <div class="card-label">Occupied</div>
+      </div>
+    </div>
+
+    <div class="overview-card percentage">
+      <div class="card-bg" [style]="{ 'width': overview().occupancyPercentage +'%' }">
+      </div>
+      <div class="card-icon">
+        <i class="pi pi-chart-pie"></i>
+      </div>
+      <div class="card-content">
+        <div class="card-value">{{ overview().occupancyPercentage }}%</div>
+        <div class="card-label">Occupancy</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vehicle-stats">
+    <div class="vehicle-stat-card two-wheeler">
+      <div class="vehicle-header">
+        <ng-icon name="matTwoWheeler" size="24"></ng-icon>
+        <h3>Two Wheeler Slots</h3>
+      </div>
+      <div class="vehicle-stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Total</span>
+          <span class="stat-value">{{ overview().twoWheelerStats.total }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Available</span>
+          <span class="stat-value available">{{ overview().twoWheelerStats.available }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Occupied</span>
+          <span class="stat-value occupied">{{ overview().twoWheelerStats.occupied }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vehicle-stat-card four-wheeler">
+      <div class="vehicle-header">
+        <ng-icon name="matDirectionsCar" size="24"></ng-icon>
+        <h3>Four Wheeler Slots</h3>
+      </div>
+      <div class="vehicle-stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Total</span>
+          <span class="stat-value">{{ overview().fourWheelerStats.total }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Available</span>
+          <span class="stat-value available">{{ overview().fourWheelerStats.available }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Occupied</span>
+          <span class="stat-value occupied">{{ overview().fourWheelerStats.occupied }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

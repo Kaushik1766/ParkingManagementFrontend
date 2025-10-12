@@ -1,31 +1,22 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Params } from '@angular/router';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
-import { TagModule } from 'primeng/tag';
-import { ChipModule } from 'primeng/chip';
-import { TooltipModule } from 'primeng/tooltip';
 import { MessageService } from 'primeng/api';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { matTwoWheeler, matDirectionsCar } from '@ng-icons/material-icons/baseline';
 import { SlotResponse, SlotOverview } from '../../models/slot';
 import { SlotService } from '../services/slot.service';
+import { SlotOverviewComponent } from './slot-overview/slot-overview.component';
+import { SlotMapComponent } from './slot-map/slot-map.component';
 
 @Component({
   selector: 'app-slots',
   imports: [
     CommonModule,
-    CardModule,
-    ButtonModule,
     ToastModule,
-    TagModule,
-    ChipModule,
-    TooltipModule,
-    NgIconComponent
+    SlotOverviewComponent,
+    SlotMapComponent
   ],
-  providers: [MessageService, provideIcons({ matTwoWheeler, matDirectionsCar })],
+  providers: [MessageService],
   templateUrl: './slots.component.html',
   styleUrl: './slots.component.scss'
 })
@@ -93,32 +84,5 @@ export class SlotsComponent implements OnInit {
         occupied: fourWheelerSlots.filter(s => s.isAssigned && s.parkingStatus).length
       }
     };
-  }
-
-  getSlotTooltip(slot: SlotResponse): string {
-    if (!slot.isAssigned || !slot.parkingStatus) {
-      return `Slot ${slot.slotNumber} - Available`;
-    }
-
-    const parkingDuration = this.getParkingDuration(slot.parkingStatus.parkedAt);
-
-    //TODO: break line
-    return `Vehicle: ${slot.parkingStatus.numberPlate}\nOwner: ${slot.parkingStatus.userName}\nEmail: ${slot.parkingStatus.userEmail}\nParked: ${parkingDuration}`;
-  }
-
-  getParkingDuration(parkedAt: string): string {
-    const now = new Date();
-    const diff = now.getTime() - new Date(parkedAt).getTime();
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-
-    if (hours > 0) {
-      return `${hours}h ${minutes}m ago`;
-    }
-    return `${minutes}m ago`;
-  }
-
-  getSlotIcon(slot: SlotResponse): string {
-    return slot.slotType === 'TwoWheeler' ? 'matTwoWheeler' : 'matDirectionsCar';
   }
 }

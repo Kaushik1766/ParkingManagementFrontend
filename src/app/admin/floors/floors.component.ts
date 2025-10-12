@@ -15,6 +15,7 @@ import { MessageService } from 'primeng/api';
 import { CreateFloorRequest, FloorResponse } from '../../models/floor';
 import { FloorService } from '../services/floor.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FloorCardComponent } from './floor-card/floor-card.component';
 
 @Component({
   selector: 'app-floors',
@@ -29,7 +30,8 @@ import { HttpErrorResponse } from '@angular/common/http';
     TagModule,
     ToastModule,
     DialogModule,
-    InputTextModule
+    InputTextModule,
+    FloorCardComponent
   ],
   templateUrl: './floors.component.html',
   styleUrl: './floors.component.scss',
@@ -46,7 +48,6 @@ export class FloorsComponent implements OnInit {
   floors: FloorResponse[] = [];
   isAddingFloor = false;
 
-  // Office Assignment Dialog
   showAssignOfficeDialog = false;
   selectedFloor: FloorResponse | null = null;
   isAssigningOffice = false;
@@ -117,17 +118,6 @@ export class FloorsComponent implements OnInit {
         }
       })
     }
-  }
-
-  getOccupancyPercentage(floor: FloorResponse): number {
-    if (floor.totalSlots === 0) return 0;
-    return Math.round(((floor.totalSlots - floor.availableSlots) / floor.totalSlots) * 100);
-  }
-
-  getOccupancySeverity(percentage: number): 'success' | 'warn' | 'danger' {
-    if (percentage < 50) return 'success';
-    if (percentage < 80) return 'warn';
-    return 'danger';
   }
 
   get isFormValid(): boolean {

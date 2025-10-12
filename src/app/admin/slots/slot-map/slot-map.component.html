@@ -1,0 +1,38 @@
+<div class="slot-map-section">
+  <div class="section-header">
+    <h3><i class="pi pi-map"></i> Slot Map</h3>
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-box available"></div>
+        <span>Available</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-box occupied"></div>
+        <span>Occupied</span>
+      </div>
+      <div class="legend-item">
+        <ng-icon name="matTwoWheeler" class="legend-icon"></ng-icon>
+        <span>2-Wheeler</span>
+      </div>
+      <div class="legend-item">
+        <ng-icon name="matDirectionsCar" class="legend-icon"></ng-icon>
+        <span>4-Wheeler</span>
+      </div>
+    </div>
+  </div>
+
+  @if (!isLoading() && slots().length > 0) {
+    <div class="slot-map">
+      @for (slot of slots(); track slot.slotNumber) {
+        <app-slot-card [slot]="slot"></app-slot-card>
+      }
+    </div>
+  }
+
+  @if (!isLoading() && slots().length === 0) {
+    <div class="empty-state">
+      <h3>No Slots Found</h3>
+      <p>No parking slots available for this floor.</p>
+    </div>
+  }
+</div>

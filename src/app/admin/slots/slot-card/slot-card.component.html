@@ -1,0 +1,24 @@
+<div
+  class="slot-card"
+  [class.occupied]="slot().isAssigned && slot().parkingStatus"
+  [class.available]="!slot().isAssigned || !slot().parkingStatus"
+  [class.two-wheeler]="slot().slotType === 'TwoWheeler'"
+  [class.four-wheeler]="slot().slotType === 'FourWheeler'"
+  [pTooltip]="getSlotTooltip(slot())"
+  tooltipPosition="top">
+
+  <div class="slot-number">{{ slot().slotNumber }}</div>
+
+  <div class="slot-icon">
+    <ng-icon [name]="getSlotIcon(slot())" size="32"></ng-icon>
+  </div>
+
+  @if (slot().isAssigned && slot().parkingStatus) {
+    <div class="slot-info">
+      <div class="vehicle-plate">{{ slot().parkingStatus!.numberPlate }}</div>
+      <div class="parking-time">{{ getParkingDuration(slot().parkingStatus!.parkedAt) }}</div>
+    </div>
+  } @else {
+    <div class="slot-status">Available</div>
+  }
+</div>

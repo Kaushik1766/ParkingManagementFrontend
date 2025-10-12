@@ -48,89 +48,11 @@
   @if (!isLoading && floors.length > 0) {
     <div class="floors-list">
       @for (floor of floors; track floor.floorNumber+' '+floor.buildingId) {
-        <div class="floor-card">
-          <div class="floor-header">
-            <div class="floor-info">
-              <div class="floor-number">
-                <i class="pi pi-building"></i>
-                <h3>Floor {{ floor.floorNumber }}</h3>
-              </div>
-              <p-tag
-                [value]="getOccupancyPercentage(floor) + '% Assigned'"
-                [severity]="getOccupancySeverity(getOccupancyPercentage(floor))">
-              </p-tag>
-            </div>
-          </div>
-
-          <div class="floor-content">
-            <div class="stats-grid">
-              <div class="stat-card available">
-                <div class="stat-icon">
-                  <i class="pi pi-check-circle"></i>
-                </div>
-                <div class="stat-details">
-                  <span class="stat-value">{{ floor.availableSlots }}</span>
-                  <span class="stat-label">Available Slots</span>
-                </div>
-              </div>
-
-              <div class="stat-card total">
-                <div class="stat-icon">
-                  <i class="pi pi-car"></i>
-                </div>
-                <div class="stat-details">
-                  <span class="stat-value">{{ floor.totalSlots }}</span>
-                  <span class="stat-label">Total Slots</span>
-                </div>
-              </div>
-
-              <div class="stat-card occupied">
-                <div class="stat-icon">
-                  <i class="pi pi-ban"></i>
-                </div>
-                <div class="stat-details">
-                  <span class="stat-value">{{ floor.totalSlots - floor.availableSlots }}</span>
-                  <span class="stat-label">Occupied Slots</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="office-assignment">
-              @if (floor.assignedOffice) {
-                <div class="assigned-office">
-                  <div class="office-info">
-                    <i class="pi pi-briefcase"></i>
-                    <div class="office-details">
-                      <span class="office-label">Assigned Office</span>
-                      <span class="office-name">{{ floor.assignedOffice }}</span>
-                    </div>
-                  </div>
-                  <p-button
-                    icon="pi pi-eye"
-                    [outlined]="true"
-                    size="small"
-                    severity="secondary"
-                    label="View Slots"
-                    (onClick)="onViewSlots(floor)">
-                  </p-button>
-                </div>
-              } @else {
-                <div class="unassigned-office">
-                  <div class="unassigned-info">
-                    <i class="pi pi-info-circle"></i>
-                    <span>No office assigned to this floor</span>
-                  </div>
-                  <p-button
-                    icon="pi pi-plus"
-                    size="small"
-                    label="Assign Office"
-                    (onClick)="onAssignOffice(floor)">
-                  </p-button>
-                </div>
-              }
-            </div>
-          </div>
-        </div>
+        <app-floor-card
+          [floor]="floor"
+          (assignOffice)="onAssignOffice($event)"
+          (viewSlots)="onViewSlots($event)">
+        </app-floor-card>
       }
     </div>
   }
