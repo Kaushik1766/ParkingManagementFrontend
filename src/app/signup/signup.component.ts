@@ -15,6 +15,8 @@ import { AuthService } from '../services/auth.service';
 import { SignupRequest } from '../models/signup.api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { signupErrors } from '../../config/signup';
+import { COMMON_MESSAGES } from '../../config/common';
+import { SIGNUP_MESSAGES } from '../../config/signup-messages';
 
 @Component({
   selector: 'app-signup',
@@ -99,12 +101,12 @@ export class SignupComponent implements OnInit {
       const sub = this.signupService.signup(userDetails).subscribe({
         next: () => {
           this.isLoading = false;
-          this.toastMessage.add({ severity: 'success', summary: 'Success', detail: 'Account created successfully' });
+          this.toastMessage.add({ severity: 'success', summary: COMMON_MESSAGES.TOAST.SUCCESS_SUMMARY, detail: SIGNUP_MESSAGES.TOAST.SUCCESS_CREATED });
         },
         error: (err: HttpErrorResponse) => {
           console.log(err)
           this.isLoading = false;
-          this.toastMessage.add({ severity: 'error', summary: 'Error', detail: err.error.message || 'Something went wrong' });
+          this.toastMessage.add({ severity: 'error', summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY, detail: err.error.message || SIGNUP_MESSAGES.TOAST.GENERIC_ERROR });
         }
       })
 

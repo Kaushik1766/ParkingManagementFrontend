@@ -13,6 +13,8 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 import { InputTextModule } from 'primeng/inputtext';
 import { Message } from "primeng/message";
+import { COMMON_MESSAGES } from '../../../config/common';
+import { VEHICLES_MESSAGES } from '../../../config/vehicles';
 
 @Component({
   selector: 'app-vehicles',
@@ -48,6 +50,8 @@ export class VehiclesComponent implements OnInit {
       { vehicleType: 'FourWheeler', value: 1 }
     ]
 
+  readonly messages = VEHICLES_MESSAGES;
+
   vehicleForm = new FormGroup({
     numberPlate: new FormControl('', {
       validators: [
@@ -73,12 +77,12 @@ export class VehiclesComponent implements OnInit {
       this.vehicleService.addVehicle(this.vehicleForm.value.numberPlate!, this.vehicleForm.value.vehicleType!)
         .subscribe({
           next: () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'Vehicle added successfully',
-              life: 10000,
-            });
+              this.messageService.add({
+                severity: 'success',
+                summary: COMMON_MESSAGES.TOAST.SUCCESS_SUMMARY,
+                detail: VEHICLES_MESSAGES.TOAST.ADDED_SUCCESS,
+                life: 10000
+              })
             this.vehicleForm.reset()
             this.vehicleForm.controls.vehicleType.setValue(-1)
             this.loadVehicles()
@@ -86,7 +90,7 @@ export class VehiclesComponent implements OnInit {
           },
           error: (err: HttpErrorResponse) => {
             this.isLoading.set(false)
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message, life: 10000 });
+            this.messageService.add({ severity: 'error', summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY, detail: err.error.message, life: 10000 });
           }
         })
     }
@@ -103,15 +107,15 @@ export class VehiclesComponent implements OnInit {
         this.messageService.add({
           life: 10000,
           severity: 'success',
-          summary: 'Success',
-          detail: `Vehicle deleted successfully`
+          summary: COMMON_MESSAGES.TOAST.SUCCESS_SUMMARY,
+          detail: 'Vehicle deleted successfully'
         })
         this.loadVehicles();
         this.isLoading.set(false);
       },
       error: (err: HttpErrorResponse) => {
-        this.isLoading.set(false);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message, life: 10000 });
+  this.isLoading.set(false);
+  this.messageService.add({ severity: 'error', summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY, detail: err.error.message, life: 10000 });
       }
     })
   }
@@ -122,16 +126,16 @@ export class VehiclesComponent implements OnInit {
       next: val => {
         this.messageService.add({
           severity: 'success',
-          summary: 'Success',
-          detail: "Vehicle parked successfully",
-          life: 5000,
-        });
+          summary: COMMON_MESSAGES.TOAST.SUCCESS_SUMMARY,
+          detail: VEHICLES_MESSAGES.TOAST.PARK_SUCCESS,
+          life: 10000
+        })
         this.loadVehicles();
         this.isLoading.set(false);
       },
       error: (err: HttpErrorResponse) => {
         this.isLoading.set(false);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message, life: 10000 });
+  this.messageService.add({ severity: 'error', summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY, detail: err.error.message, life: 10000 });
       }
     })
   }
@@ -142,16 +146,16 @@ export class VehiclesComponent implements OnInit {
       next: () => {
         this.messageService.add({
           severity: 'success',
-          summary: 'Success',
-          detail: `Vehicle unparked successfully`,
-          life: 5000,
-        });
+          summary: COMMON_MESSAGES.TOAST.SUCCESS_SUMMARY,
+          detail: VEHICLES_MESSAGES.TOAST.UNPARK_SUCCESS,
+          life: 10000
+        })
         this.loadVehicles();
         this.isLoading.set(false);
       },
       error: (err: HttpErrorResponse) => {
         this.isLoading.set(false);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error.message, life: 10000 });
+  this.messageService.add({ severity: 'error', summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY, detail: err.error.message, life: 10000 });
       }
     })
   }
@@ -165,7 +169,7 @@ export class VehiclesComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => {
         this.isLoading.set(false)
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.message, life: 10000 });
+  this.messageService.add({ severity: 'error', summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY, detail: err.message, life: 10000 });
       }
     })
   }

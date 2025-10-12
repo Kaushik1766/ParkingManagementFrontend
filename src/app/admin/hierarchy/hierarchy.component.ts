@@ -15,6 +15,8 @@ import { SlotResponse } from '../../models/slot';
 import { BuildingService } from '../services/building.service';
 import { FloorService } from '../services/floor.service';
 import { SlotService } from '../services/slot.service';
+import { COMMON_MESSAGES } from '../../../config/common';
+import { HIERARCHY_MESSAGES } from '../../../config/hierarchy';
 
 interface BuildingHierarchy extends Building {
   floors?: FloorHierarchy[];
@@ -67,11 +69,11 @@ export class HierarchyComponent implements OnInit {
         this.isLoadingBuildings = false;
       },
       error: (error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Failed to load buildings'
-        });
+          this.messageService.add({
+            severity: 'error',
+            summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY,
+            detail: HIERARCHY_MESSAGES.TOAST.LOAD_BUILDINGS_FAILED
+          });
         this.isLoadingBuildings = false;
       }
     });
@@ -95,11 +97,11 @@ export class HierarchyComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading floors:', error);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: `Failed to load floors for ${building.name}`
-        });
+          this.messageService.add({
+            severity: 'error',
+            summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY,
+            detail: HIERARCHY_MESSAGES.TOAST.LOAD_FLOORS_FAILED
+          });
         building.isLoadingFloors = false;
       }
     });
@@ -123,11 +125,11 @@ export class HierarchyComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading slots:', error);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: `Failed to load slots for Floor ${floor.floorNumber}`
-        });
+          this.messageService.add({
+            severity: 'error',
+            summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY,
+            detail: HIERARCHY_MESSAGES.TOAST.LOAD_SLOTS_FAILED
+          });
         floor.isLoadingSlots = false;
       }
     });

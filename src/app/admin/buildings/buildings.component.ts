@@ -13,6 +13,8 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BuildingCardComponent } from './building-card/building-card.component';
 import { map } from 'rxjs';
+import { COMMON_MESSAGES } from '../../../config/common';
+import { BUILDINGS_MESSAGES } from '../../../config/buildings';
 
 @Component({
   selector: 'app-buildings',
@@ -70,24 +72,24 @@ export class BuildingsComponent implements OnInit {
       this.isLoading = true
       this.buildingService.addBuilding(this.addBuildingForm.value.buildingName!).subscribe({
         next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Building added successfully',
-            life: 10000,
-          });
+            this.messageService.add({
+              severity: 'success',
+              summary: COMMON_MESSAGES.TOAST.SUCCESS_SUMMARY,
+              detail: BUILDINGS_MESSAGES.TOAST.ADDED_SUCCESS,
+              life: 10000,
+            });
           this.addBuildingForm.reset();
           this.isLoading = false;
           this.loadBuildings();
         },
         error: (err: HttpErrorResponse) => {
           this.isLoading = false
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: err.error.message,
-            life: 10000,
-          });
+            this.messageService.add({
+              severity: 'error',
+              summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY,
+              detail: err.error.message,
+              life: 10000,
+            });
         },
       })
     }

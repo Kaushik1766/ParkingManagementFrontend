@@ -11,6 +11,8 @@ import { Roles } from '../models/user';
 import { Toast } from 'primeng/toast'
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
+import { COMMON_MESSAGES } from '../../config/common';
+import { LOGIN_MESSAGES } from '../../config/login';
 
 @Component({
   selector: 'app-login',
@@ -53,13 +55,13 @@ export class LoginComponent {
       },
       error: (err: HttpErrorResponse) => {
         this.loading.set(false)
-        this.toastMessageService.add({
-          severity: 'error',
-          closable: true,
-          summary: 'Login Error',
-          detail: err.error.message,
-          life: 5000,
-        })
+          this.toastMessageService.add({
+            severity: 'error',
+            closable: true,
+            summary: LOGIN_MESSAGES.TOAST.ERROR_SUMMARY,
+            detail: err.error.message,
+            life: 5000,
+          })
       },
     })
 

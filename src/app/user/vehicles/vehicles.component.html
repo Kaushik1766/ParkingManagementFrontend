@@ -12,7 +12,7 @@
       <p-floatlabel variant="on">
         <input pInputText id="numberplate" formControlName="numberPlate" fluid autocomplete="off" />
         @if(isNumberPlateInvalid){
-          <p-message severity="error" variant="simple" size="small">Please enter a valid number plate</p-message>
+          <p-message severity="error" variant="simple" size="small">{{ messages.ERRORS.NUMBER_PLATE_INVALID }}</p-message>
         }
         <label for="numberplate">Number Plate</label>
       </p-floatlabel>

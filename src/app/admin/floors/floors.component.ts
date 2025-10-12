@@ -13,6 +13,8 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
 import { CreateFloorRequest, FloorResponse } from '../../models/floor';
+import { COMMON_MESSAGES } from '../../../config/common';
+import { FLOORS_MESSAGES } from '../../../config/floors';
 import { FloorService } from '../services/floor.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FloorCardComponent } from './floor-card/floor-card.component';
@@ -102,8 +104,8 @@ export class FloorsComponent implements OnInit {
         next: () => {
           this.messageService.add({
             severity: 'success',
-            summary: 'Success',
-            detail: `Floor ${this.floorFormGroup.value.floorNumber} added successfully`
+            summary: COMMON_MESSAGES.TOAST.SUCCESS_SUMMARY,
+            detail: FLOORS_MESSAGES.TOAST.ADDED_SUCCESS(this.floorFormGroup.value.floorNumber!)
           });
           this.floorFormGroup.reset();
           this.isLoading = false;
@@ -112,7 +114,7 @@ export class FloorsComponent implements OnInit {
         error: (err: HttpErrorResponse) => {
           this.messageService.add({
             severity: 'error',
-            summary: 'Error',
+            summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY,
             detail: err.error.message
           });
           this.isLoading = false;
@@ -130,10 +132,10 @@ export class FloorsComponent implements OnInit {
     const control = this.floorFormGroup.get('floorNumber');
     if (control?.touched && control?.errors) {
       if (control.errors['required']) {
-        return 'Floor number is required';
+  return FLOORS_MESSAGES.ERRORS.FLOOR_REQUIRED;
       }
       if (control.errors['min']) {
-        return 'Floor number must be 0 or greater';
+  return FLOORS_MESSAGES.ERRORS.FLOOR_MIN;
       }
     }
     return null;
@@ -153,8 +155,8 @@ export class FloorsComponent implements OnInit {
         next: () => {
           this.messageService.add({
             severity: 'success',
-            summary: 'Success',
-            detail: `Office "${officeName}" assigned to Floor ${this.selectedFloor?.floorNumber} successfully`
+            summary: COMMON_MESSAGES.TOAST.SUCCESS_SUMMARY,
+            detail: FLOORS_MESSAGES.TOAST.OFFICE_ASSIGNED_SUCCESS(officeName, this.selectedFloor?.floorNumber!)
           });
           this.isAssigningOffice = false;
           this.showAssignOfficeDialog = false;
@@ -165,7 +167,7 @@ export class FloorsComponent implements OnInit {
         error: (err: HttpErrorResponse) => {
           this.messageService.add({
             severity: 'error',
-            summary: 'Error',
+            summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY,
             detail: err.error.message
           });
           this.isAssigningOffice = false;
@@ -184,10 +186,10 @@ export class FloorsComponent implements OnInit {
     const control = this.assignOfficeFormGroup.get('officeName');
     if (control?.touched && control?.errors) {
       if (control.errors['required']) {
-        return 'Office name is required';
+  return FLOORS_MESSAGES.ERRORS.OFFICE_NAME_REQUIRED;
       }
       if (control.errors['minLength']) {
-        return 'Office name must be at least 2 characters';
+  return FLOORS_MESSAGES.ERRORS.OFFICE_NAME_MIN;
       }
     }
     return null;

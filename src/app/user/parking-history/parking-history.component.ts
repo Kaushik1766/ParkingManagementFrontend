@@ -10,6 +10,8 @@ import { ParkingHistoryService } from '../services/parking-history.service';
 import { Toast } from "primeng/toast";
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
+import { COMMON_MESSAGES } from '../../../config/common';
+import { PARKING_HISTORY_MESSAGES } from '../../../config/parking-history';
 import { LoaderComponent } from "../../shared/loader/loader.component";
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from "@angular/forms";
@@ -52,7 +54,7 @@ export class ParkingHistoryComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error:HttpErrorResponse) => {
-        this.messageService.add({severity:'error', summary: 'Error', detail: error.error.message});
+  this.messageService.add({severity:'error', summary: COMMON_MESSAGES.TOAST.ERROR_SUMMARY, detail: error.error.message || PARKING_HISTORY_MESSAGES.ERRORS.FETCH_FAILED});
         this.isLoading = false;
       }
     });
