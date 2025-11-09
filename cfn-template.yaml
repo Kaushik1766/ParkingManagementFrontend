@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: s3 for hosting website
+
+Resources: 
+  parkingManagement:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Delete
+    Properties: 
+      # AccessControl: PublicRead
+      VersioningConfiguration: 
+        Status: Enabled
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration: 
+        ErrorDocument: index.html
+        IndexDocument: index.html
+
+  s3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref parkingManagement
+      PolicyDocument: 
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - s3:GetObject
+            Effect: Allow
+            Resource: !Sub '${parkingManagement.Arn}/*'
+            Principal: '*'
+
+Outputs:
+  WebsiteUrl:
+    Value: !GetAtt parkingManagement.WebsiteURL
+    Description: URL for website hosted on S3
+  BucketName:
+    Value: !Ref parkingManagement
+    Description: Name of S3 bucket
