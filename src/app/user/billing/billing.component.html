@@ -1,0 +1,69 @@
+<p-toast></p-toast>
+<app-loader [isLoading]="isLoading"></app-loader>
+
+<div class="billing-container">
+  <div class="header">
+    <h1>Monthly Billing</h1>
+    <p>View your parking charges and history</p>
+  </div>
+
+  <div class="controls">
+    <p-dropdown [options]="months" [(ngModel)]="selectedMonth" optionLabel="label" optionValue="value" placeholder="Select Month"></p-dropdown>
+    <p-dropdown [options]="years" [(ngModel)]="selectedYear" optionLabel="label" optionValue="value" placeholder="Select Year"></p-dropdown>
+    <p-button label="Get Bill" (onClick)="getBill()" [loading]="isLoading"></p-button>
+  </div>
+
+  <div *ngIf="bill" class="bill-details">
+    <p-card header="Bill Summary">
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span class="label">User ID:</span>
+          <span class="value">{{ bill.user_id }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Bill Date:</span>
+          <span class="value">{{ bill.bill_date | date }}</span>
+        </div>
+        <div class="summary-item total">
+          <span class="label">Total Amount:</span>
+          <span class="value">{{ bill.total_amount | currency:'INR' }}</span>
+        </div>
+      </div>
+    </p-card>
+
+    <div class="history-section">
+      <h3>Parking History</h3>
+      <p-table [value]="bill.parking_history" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Ticket ID</th>
+            <th>Number Plate</th>
+            <th>Building</th>
+            <th>Floor</th>
+            <th>Slot</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Vehicle Type</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-history>
+          <tr>
+            <td>{{ history.TicketId }}</td>
+            <td>{{ history.NumberPlate }}</td>
+            <td>{{ history.BuildingName }}</td>
+            <td>{{ history.FLoorNumber }}</td>
+            <td>{{ history.SlotNumber }}</td>
+            <td>{{ history.StartTime | date:'short' }}</td>
+            <td>{{ history.EndTime | date:'short' }}</td>
+            <td>{{ history.VechicleType }}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No parking history found for this month.</td>
+            </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
