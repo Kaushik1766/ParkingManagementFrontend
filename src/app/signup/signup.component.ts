@@ -17,6 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { signupErrors } from '../../config/signup';
 import { COMMON_MESSAGES } from '../../config/common';
 import { SIGNUP_MESSAGES } from '../../config/signup-messages';
+import { Office } from '../models/office';
 
 @Component({
   selector: 'app-signup',
@@ -43,7 +44,7 @@ export class SignupComponent implements OnInit {
   private destroyRef = inject(DestroyRef)
   private toastMessage = inject(MessageService)
 
-  offices: string[] = ['addf']
+  offices: Office[] = []
   isLoading = false
 
   signupForm = new FormGroup({
@@ -95,7 +96,7 @@ export class SignupComponent implements OnInit {
       const userDetails: SignupRequest = {
         email: this.signupForm.controls.email.value!,
         name: this.signupForm.controls.userName.value!,
-        officeName: this.signupForm.controls.office.value!,
+        officeId: this.signupForm.controls.office.value!,
         password: this.signupForm.controls.password.value!
       }
       const sub = this.signupService.signup(userDetails).subscribe({

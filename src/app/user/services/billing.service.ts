@@ -9,7 +9,7 @@ export class BillingService {
     private httpClient = inject(HttpClient)
 
     getBill(month: number, year: number) {
-        return this.httpClient.get<Bill>(`/billing`, {
+        return this.httpClient.get<Bill>(`billing`, {
             params: {
                 month: month.toString(),
                 year: year.toString()

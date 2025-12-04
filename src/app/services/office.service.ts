@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 
+import { Office } from '../models/office';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +13,6 @@ export class OfficeService {
   constructor() { }
 
   getOffices() {
-    return this.httpClient.get<string[]>('offices')
+    return this.httpClient.get<Office[]>('offices')
   }
 }

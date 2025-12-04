@@ -30,7 +30,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     providers: [MessageService]
 })
 export class BillingComponent implements OnInit {
-    months = [
+    allMonths = [
         { label: 'January', value: 1 },
         { label: 'February', value: 2 },
         { label: 'March', value: 3 },
@@ -44,6 +44,8 @@ export class BillingComponent implements OnInit {
         { label: 'November', value: 11 },
         { label: 'December', value: 12 }
     ];
+
+    availableMonths: { label: string, value: number }[] = [];
 
     years: { label: string, value: number }[] = [];
 
@@ -61,8 +63,26 @@ export class BillingComponent implements OnInit {
         this.selectedMonth = currentDate.getMonth() + 1;
         this.selectedYear = currentDate.getFullYear();
 
-        for (let year = 2020; year <= this.selectedYear + 1; year++) {
+        for (let year = 2020; year <= this.selectedYear; year++) {
             this.years.push({ label: year.toString(), value: year });
+        }
+        this.updateAvailableMonths();
+    }
+
+    updateAvailableMonths() {
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth() + 1;
+
+        if (this.selectedYear === currentYear) {
+            this.availableMonths = this.allMonths.filter(m => m.value <= currentMonth);
+        } else {
+            this.availableMonths = [...this.allMonths];
+        }
+
+        // If selected month is not in the available list (e.g. switching from past year Dec to current year Jan), reset it
+        if (!this.availableMonths.find(m => m.value === this.selectedMonth)) {
+            this.selectedMonth = this.availableMonths[this.availableMonths.length - 1].value;
         }
     }
 

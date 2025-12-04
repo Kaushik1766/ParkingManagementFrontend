@@ -19,7 +19,7 @@
             <label for="email">Email</label>
           </p-floatlabel>
           <!-- @if(isEmailInvalid){ -->
-            <p-message severity="error" variant="simple" size="small">{{getInvalidEmailMessage}}</p-message>
+          <p-message severity="error" variant="simple" size="small">{{getInvalidEmailMessage}}</p-message>
           <!-- } -->
         </div>
         <div class="form-field">
@@ -27,28 +27,30 @@
             <input pInputText id="userName" autocomplete="off" name="userName" fluid formControlName="userName" />
             <label for="userName">UserName</label>
           </p-floatlabel>
-            <p-message severity="error" variant="simple" size="small">{{getInvalidUsernameMessage}}</p-message>
+          <p-message severity="error" variant="simple" size="small">{{getInvalidUsernameMessage}}</p-message>
         </div>
         <div class="form-field">
           <p-floatlabel variant="on">
-            <p-password [toggleMask]="true" inputId="password" name="password" [feedback]='false' fluid formControlName="password" />
+            <p-password [toggleMask]="true" inputId="password" name="password" [feedback]='false' fluid
+              formControlName="password" />
             <label for="password">Password</label>
           </p-floatlabel>
-            <p-message severity="error" variant="simple" size="small">{{getInvalidPasswordMessage}}</p-message>
+          <p-message severity="error" variant="simple" size="small">{{getInvalidPasswordMessage}}</p-message>
         </div>
         <div class="form-field">
           <p-floatlabel variant="on" class="text-accent">
             <!-- <input pInputText id="officeName" autocomplete="off" name="officeName" fluid formControlName="office"/> -->
-            <p-select [options]="offices" formControlName="office" fluid placeholder="Please select your office" />
+            <p-select [options]="offices" optionLabel="office_name" optionValue="office_id" formControlName="office"
+              fluid placeholder="Please select your office" />
             <label for="officeName">OfficeName</label>
           </p-floatlabel>
-            <p-message severity="error" variant="simple" size="small">{{getInvalidOfficeMessage}}</p-message>
+          <p-message severity="error" variant="simple" size="small">{{getInvalidOfficeMessage}}</p-message>
         </div>
-        <p-button [disabled]="isLoading || this.signupForm.invalid" type="submit" styleClass="w-full" >Submit</p-button>
+        <p-button [disabled]="isLoading || this.signupForm.invalid" type="submit" styleClass="w-full">Submit</p-button>
       </form>
 
       <div>
-        <p>Already registered? <a class="text-accent" [routerLink]="['/login']" >Sign in</a></p>
+        <p>Already registered? <a class="text-accent" [routerLink]="['/login']">Sign in</a></p>
       </div>
     </div>
   </div>
