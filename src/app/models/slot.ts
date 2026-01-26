@@ -21,6 +21,7 @@ export interface SlotResponse {
   slotNumber: number;
   slotType: "TwoWheeler" | "FourWheeler";
   isAssigned: boolean;
+  isOccupied: boolean;
   parkingStatus?: {
     numberPlate: string;
     parkedAt: string;

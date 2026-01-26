@@ -25,7 +25,7 @@ export class SlotCardComponent {
   }
 
   getSlotTooltip(slot: SlotResponse): string {
-    if (!slot.isAssigned || !slot.parkingStatus) {
+    if (!slot.isOccupied || !slot.parkingStatus) {
       return `Slot ${slot.slotNumber} - Available`;
     }
 

@@ -64,7 +64,7 @@ export class SlotsComponent implements OnInit {
 
   calculateOverview(): void {
     const totalSlots = this.slots?.length;
-    const occupiedSlots = this.slots.filter(s => s.isAssigned && s.parkingStatus).length;
+    const occupiedSlots = this.slots.filter(s => s.isOccupied).length;
     const availableSlots = totalSlots - occupiedSlots;
 
     const twoWheelerSlots = this.slots.filter(slot => slot.slotType === 'TwoWheeler');
@@ -77,13 +77,13 @@ export class SlotsComponent implements OnInit {
       occupancyPercentage: totalSlots > 0 ? Math.round((occupiedSlots / totalSlots) * 100) : 0,
       twoWheelerStats: {
         total: twoWheelerSlots.length,
-        available: twoWheelerSlots.filter(s => !s.isAssigned || !s.parkingStatus).length,
-        occupied: twoWheelerSlots.filter(s => s.isAssigned && s.parkingStatus).length
+        available: twoWheelerSlots.filter(s => !s.isOccupied).length,
+        occupied: twoWheelerSlots.filter(s => s.isOccupied).length
       },
       fourWheelerStats: {
         total: fourWheelerSlots.length,
-        available: fourWheelerSlots.filter(s => !s.isAssigned || !s.parkingStatus).length,
-        occupied: fourWheelerSlots.filter(s => s.isAssigned && s.parkingStatus).length
+        available: fourWheelerSlots.filter(s => !s.isOccupied).length,
+        occupied: fourWheelerSlots.filter(s => s.isOccupied).length
       }
     };
   }

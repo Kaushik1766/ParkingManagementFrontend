@@ -1,7 +1,7 @@
 <div
   class="slot-card"
-  [class.occupied]="slot().isAssigned && slot().parkingStatus"
-  [class.available]="!slot().isAssigned || !slot().parkingStatus"
+  [class.occupied]="slot().isOccupied"
+  [class.available]="!slot().isOccupied"
   [class.two-wheeler]="slot().slotType === 'TwoWheeler'"
   [class.four-wheeler]="slot().slotType === 'FourWheeler'"
   [pTooltip]="getSlotTooltip(slot())"
@@ -13,7 +13,7 @@
     <ng-icon [name]="getSlotIcon(slot())" size="32"></ng-icon>
   </div>
 
-  @if (slot().isAssigned && slot().parkingStatus) {
+  @if (slot().isOccupied && slot().parkingStatus) {
     <div class="slot-info">
       <div class="vehicle-plate">{{ slot().parkingStatus!.numberPlate }}</div>
       <div class="parking-time">{{ getParkingDuration(slot().parkingStatus!.parkedAt) }}</div>
