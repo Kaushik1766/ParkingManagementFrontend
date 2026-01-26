@@ -25,13 +25,16 @@ export class SlotCardComponent {
   }
 
   getSlotTooltip(slot: SlotResponse): string {
-    if (!slot.isOccupied || !slot.parkingStatus) {
-      return `Slot ${slot.slotNumber} - Available`;
+    if (slot.isOccupied && slot.parkingStatus) {
+      const parkingDuration = this.getParkingDuration(slot.parkingStatus.parkedAt);
+      return `Vehicle: ${slot.parkingStatus.numberPlate}\nOwner: ${slot.parkingStatus.userName}\nEmail: ${slot.parkingStatus.userEmail}\nParked: ${parkingDuration}`;
     }
 
-    const parkingDuration = this.getParkingDuration(slot.parkingStatus.parkedAt);
+    if (slot.isAssigned) {
+      return `Slot ${slot.slotNumber} - Assigned`;
+    }
 
-    return `Vehicle: ${slot.parkingStatus.numberPlate}\nOwner: ${slot.parkingStatus.userName}\nEmail: ${slot.parkingStatus.userEmail}\nParked: ${parkingDuration}`;
+    return `Slot ${slot.slotNumber} - Available`;
   }
 
   getParkingDuration(parkedAt: string): string {

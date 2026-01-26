@@ -33,6 +33,27 @@
     }
   }
 
+  &.assigned {
+    border-color: var(--p-yellow-200);
+    background: var(--p-yellow-50);
+
+    &::before {
+      background: var(--p-yellow-400);
+    }
+
+    &:hover {
+      border-color: var(--p-yellow-300);
+    }
+
+    .slot-icon ng-icon {
+      color: var(--p-yellow-600);
+    }
+
+    .slot-status {
+      color: var(--p-yellow-700);
+    }
+  }
+
   &.occupied {
     border-color: var(--p-red-200);
     background: var(--p-red-50);
