@@ -12,16 +12,58 @@
     <div class="form-content">
       <h2>Welcome Back</h2>
       <p>Welcome back, please sign in to your account</p>
-      <form (submit)='login()'>
-        <p-floatlabel variant="on" class="text-accent">
-          <input pInputText id="email" autocomplete="off" name="email" fluid [(ngModel)]='email' email />
-          <label for="email">Email</label>
-        </p-floatlabel>
-        <p-floatlabel variant="on">
-          <p-password inputId="password" name="password" [feedback]='false' fluid [(ngModel)]='password'/>
-          <label for="password">Password</label>
-        </p-floatlabel>
-        <p-button type="submit" styleClass="w-full" [disabled]='loading()' >{{loading()?'Hang on...':'Login'}}</p-button>
+      <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+        <div class="form-field">
+          <p-floatlabel variant="on" class="text-accent">
+            <input
+              pInputText
+              id="email"
+              type="email"
+              autocomplete="off"
+              name="email"
+              fluid
+              [(ngModel)]="email"
+              #emailModel="ngModel"
+              email
+              required
+            />
+            <label for="email">Email</label>
+          </p-floatlabel>
+          <div class="message-slot">
+            <p-message
+              severity="error"
+              variant="simple"
+              size="small"
+              *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)"
+            >Please enter a valid email address</p-message>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <p-floatlabel variant="on">
+            <p-password
+              inputId="password"
+              name="password"
+              [feedback]="false"
+              fluid
+              [(ngModel)]="password"
+              #passwordModel="ngModel"
+              minlength="3"
+              required
+            />
+            <label for="password">Password</label>
+          </p-floatlabel>
+          <div class="message-slot">
+            <p-message
+              severity="error"
+              variant="simple"
+              size="small"
+              *ngIf="passwordModel.invalid && (passwordModel.dirty || passwordModel.touched)"
+            >Password must be at least 3 characters</p-message>
+          </div>
+        </div>
+
+        <p-button type="submit" styleClass="w-full" [disabled]="loading() || loginForm.invalid">{{loading() ? 'Hang on...' : 'Login'}}</p-button>
       </form>
 
       <div>

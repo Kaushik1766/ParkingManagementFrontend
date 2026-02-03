@@ -1,9 +1,11 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Button } from 'primeng/button';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { InputTextModule } from "primeng/inputtext";
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { Password } from 'primeng/password';
+import { Message } from 'primeng/message';
 import { Router, RouterLink } from '@angular/router';
 import { ThemingService } from '../services/theming.service';
 import { AuthService } from '../services/auth.service';
@@ -17,6 +19,7 @@ import { LOGIN_MESSAGES } from '../../config/login';
 @Component({
   selector: 'app-login',
   imports: [
+    CommonModule,
     RouterLink,
     FormsModule,
 
@@ -24,7 +27,8 @@ import { LOGIN_MESSAGES } from '../../config/login';
     Button,
     InputTextModule,
     FloatLabelModule,
-    Password
+    Password,
+    Message
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -43,7 +47,11 @@ export class LoginComponent {
   errorMessage = signal('')
 
 
-  login() {
+  login(form: NgForm) {
+    if (form.invalid) {
+      return
+    }
+
     this.loading.set(true)
     const loginSub = this.authService.login(this.email, this.password).subscribe({
       next: () => {
